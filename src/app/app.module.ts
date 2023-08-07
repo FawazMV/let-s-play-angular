@@ -3,11 +3,12 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { UserModule } from './Modules/User/user.module'
+import { UserModule } from './Modules/User/user.module';
+import { StoreModule } from '@ngrx/store'
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, UserModule],
+  imports: [BrowserModule, AppRoutingModule, UserModule, StoreModule.forRoot({}, {})],
   providers: [],
   bootstrap: [AppComponent]
 })
