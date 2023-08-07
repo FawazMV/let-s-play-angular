@@ -1,1 +1,61 @@
-<p>navbar works!</p>
+<div class="shadow-lg w-full text-white fixed z-30 top-0 left-0">
+  <div
+    class="lg:flex items-center justify-between bg-slate-800 py-4 lg:px-10 px-7"
+  >
+    <div
+      class="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] text-white"
+    >
+      <img
+        class="w-[55px] mx-2"
+        src="../../../../../../assets/images/pngwing.com.png"
+      />
+      Let's Play
+    </div>
+
+    <div
+      class="text-9xl font-extrabold text-white absolute right-8 top-6 cursor-pointer lg:hidden"
+      (click)="toggleMenu()"
+    >
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          fillRule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+        />
+      </svg>
+    </div>
+
+    <ul
+      class="lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static bg-white lg:bg-slate-800 lg:z-auto z-[-1] left-0 w-full lg:w-auto lg:pl-0 pl-9 transition-all duration-500 ease-in"
+      [ngClass]="{
+        'top-[67px]': isOpen,
+        'top-[-490px]': !isOpen
+      }"
+    >
+      <li *ngFor="let menu of menus" class="text-sm lg:ml-8 lg:my-0 my-7">
+        <a href="menu.link">{{ menu.name }}</a>
+      </li>
+      <button
+        routerLink="login"
+        class="bg-indigo-600 text-white font-[Poppins] py-2 px-6 rounded md:ml-8 hover:bg-indigo-400 duration-500"
+      >
+        Get Started
+      </button>
+    </ul>
+  </div>
+</div>
+
+<!-- <span class="text-sm lg:ml-8 lg:my-0 my-7">
+  <a href="/profile">
+    <span class="text-gray-800 lg:hidden hover:text-gray-400 duration-500"
+      >PROFILE</span
+    >
+    <svg
+      width="30"
+      height="30"
+      fill="currentColor"
+      class="bi bi-person-circle hidden lg:block text-white"
+      viewBox="0 0 16 16"
+    >
+    </svg>
+  </a>
+</span> -->
