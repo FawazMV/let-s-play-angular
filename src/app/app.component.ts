@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
+import {
+  errorMessageSelector,
+  getLoading,
+  modalMessageSelector
+} from './store/shared/shared.selector'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +12,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'let-s-play';
+  title = 'let-s-play'
+  showLoading = this.store.select(getLoading)
+  showModal = this.store.select(modalMessageSelector)
+  errorMessage$ = this.store.select(errorMessageSelector)
+  constructor (private store: Store) {}
 }

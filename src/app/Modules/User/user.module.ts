@@ -25,8 +25,7 @@ import { UserAuthEffects } from './Pages/Auth/store/auth.effects'
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(userReducers),
-    EffectsModule.forRoot([UserAuthEffects])
+    StoreModule.forRoot(userReducers)
   ]
 })
 export class UserModule {}

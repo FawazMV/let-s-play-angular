@@ -1,3 +1,8 @@
-<div class="min-h-screen min-w-[100vw]">
+<div class="min-h-screen min-w-[100vw] text-white bg-gray-900">
+  <app-loader *ngIf="showLoading | async" />
+  <app-error-message
+    *ngIf="errorMessage$ | async as error"
+    [errorMessage]="error"
+  />
   <router-outlet />
 </div>
