@@ -1,1 +1,62 @@
-<p>register works!</p>
+<div class="grid place-items-center min-h-[85vh]">
+  <div
+    class="max-w-md md:min-w-[434px] p-6 rounded-md sm:px-12 py-5 bg-slate-800 text-gray-100"
+  >
+    <div class="mb-3 text-center">
+      <h1 class="my-3 text-4xl font-bold">Sign up</h1>
+      <p class="text-sm text-gray-400">Sign up to access your account</p>
+    </div>
+    <form>
+      <app-input-box
+        inputId="username"
+        inputType="text"
+        labelName="Username"
+        inputPlaceHolder="Username"
+        inputFormControlName="username"
+        [form]="signupForm"
+      />
+      <app-input-box
+        inputId="emailId"
+        inputType="email"
+        labelName="Email address"
+        inputPlaceHolder="leroy@jenkins.com"
+        inputFormControlName="email"
+        [form]="signupForm"
+      />
+      <app-input-box
+        inputId="password"
+        inputType="password"
+        labelName="Password"
+        inputPlaceHolder="*****"
+        inputFormControlName="password"
+        [form]="signupForm"
+      />
+
+      <app-input-box
+        inputId="mobileNumber"
+        inputType="number"
+        labelName="Mobile Number"
+        inputPlaceHolder="+91 ****3210"
+        inputFormControlName="mobileNumber"
+        [form]="signupForm"
+      />
+      <div class="space-y-2">
+        <div>
+          <button
+            (click)="submit()"
+            type="button"
+            class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 text-gray-900"
+          >
+            Sign Up
+          </button>
+        </div>
+        <p class="px-6 text-sm text-center text-gray-400">
+          Already have an account?
+          <a class="hover:underline text-violet-400" routerLink="/login"
+            >Login here</a
+          >.
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
