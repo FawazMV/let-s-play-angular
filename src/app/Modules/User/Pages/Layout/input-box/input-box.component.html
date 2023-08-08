@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <div class="my-5">
+    <label [for]="inputId" class="block mb-2 text-sm">{{ labelName }}</label>
+    <input
+      [id]="inputId"
+      [type]="inputType"
+      class="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100"
+      [placeholder]="inputPlaceHolder"
+      [formControlName]="inputFormControlName"
+    />
+    <p class="text-red-500 text-sm">{{ showErrors() }}</p>
+  </div>
+</form>

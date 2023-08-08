@@ -11,7 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { userReducers } from './store/user.state'
-import { UserAuthEffects } from './Pages/Auth/store/auth.effects'
+import { UserAuthEffects } from './Pages/Auth/store/auth.effects';
+import { InputBoxComponent } from './Pages/Layout/input-box/input-box.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserAuthEffects } from './Pages/Auth/store/auth.effects'
     NavbarComponent,
     PageManagerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    InputBoxComponent
   ],
   imports: [
     CommonModule,
