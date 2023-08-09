@@ -9,10 +9,9 @@ import { LoginComponent } from './Pages/Auth/login/login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { StoreModule } from '@ngrx/store'
-import { EffectsModule } from '@ngrx/effects'
 import { userReducers } from './store/user.state'
-import { UserAuthEffects } from './Pages/Auth/store/auth.effects';
 import { InputBoxComponent } from './Pages/Layout/input-box/input-box.component'
+import { ButtonComponent } from './Pages/Auth/button/button.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +20,8 @@ import { InputBoxComponent } from './Pages/Layout/input-box/input-box.component'
     PageManagerComponent,
     LoginComponent,
     RegisterComponent,
-    InputBoxComponent
+    InputBoxComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,

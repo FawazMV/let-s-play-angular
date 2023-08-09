@@ -29,6 +29,10 @@ export class InputBoxComponent {
       if (inputData.getError('minlength')) return this.labelName + ' is invalid'
       if (inputData.getError('maxlength')) return this.labelName + ' is invalid'
       if (inputData.getError('email')) return this.labelName + ' is invalid'
+      if (inputData.errors)
+        for (const errorKey in inputData.errors) {
+          return inputData.errors[errorKey].message
+        }
     }
     return ''
   }
