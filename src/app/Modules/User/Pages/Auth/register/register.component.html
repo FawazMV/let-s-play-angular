@@ -34,3 +34,4 @@
     </form>
   </div>
 </div>
+<app-otp-page *ngIf="isOtp$ | async" (otpSubmit)="otpSubmit($event)" />

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
+import {
+  setErrorMessage,
+  setLoadingSpinner
+} from 'src/app/store/shared/shared.actions'
 import { loginStart } from '../store/auth.actions'
 
 @Component({
@@ -20,29 +23,30 @@ export class LoginComponent {
     ])
   })
 
-  showEmailErrors (): string {
-    const emailForm = this.loginForm.get('email')
-    if (emailForm?.touched && emailForm.invalid) {
-      if (emailForm.getError('required')) return 'Email Id is required'
-      if (emailForm.getError('email')) return 'Email Id is not valid'
+  inputBoxes = [
+    {
+      inputId: 'email',
+      inputType: 'email',
+      labelName: 'Email address',
+      inputPlaceHolder: 'leroy@jenkins.com'
+    },
+    {
+      inputId: 'password',
+      inputType: 'password',
+      labelName: 'Password',
+      inputPlaceHolder: '****'
     }
-    return ''
-  }
-
-  showPasswordErrors (): string {
-    const passwordForm = this.loginForm.get('password')
-    if (passwordForm?.touched && !passwordForm.valid) {
-      if (passwordForm.getError('required')) return 'Password is required'
-      if (passwordForm.getError('minlength'))
-        return 'Password length should be minimum 3 letters'
-    }
-    return ''
-  }
+  ]
 
   onSubmit () {
+    this.store.dispatch(setErrorMessage({ message: '' }))
     if (this.loginForm.invalid) return
     const { email, password } = this.loginForm.value
     this.store.dispatch(setLoadingSpinner({ status: true }))
     this.store.dispatch(loginStart({ email, password }))
+  }
+
+  ngOnDestroy () {
+    this.store.dispatch(setErrorMessage({ message: '' }))
   }
 }

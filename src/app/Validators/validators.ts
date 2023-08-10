@@ -22,4 +22,18 @@ export class ManualValidators {
     }
     return null
   }
+
+  static containSpecialCharacters (
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>]/
+    if (specialCharacterPattern.test(control.value)) {
+      return {
+        containSpecialCharecter: {
+          message: 'Invalid input, special character included'
+        }
+      }
+    }
+    return null
+  }
 }

@@ -7,7 +7,7 @@ const _authReducer = createReducer(
   on(loginSuccess, (state, action) => {
     return {
       ...state,
-      user: action.user
+      user: { token: action.user.token }
     }
   })
 )

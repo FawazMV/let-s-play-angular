@@ -1,6 +1,14 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import {
+  setErrorMessage,
+  setLoadingSpinner,
+  setOtp
+} from 'src/app/store/shared/shared.actions'
+import { otpSelector } from 'src/app/store/shared/shared.selector'
 import { ManualValidators } from 'src/app/Validators/validators'
+import { otpConfirm, signupStart } from '../store/auth.actions'
 
 @Component({
   selector: 'app-register',
@@ -8,11 +16,14 @@ import { ManualValidators } from 'src/app/Validators/validators'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  isOtp$ = this.store.select(otpSelector)
+
   signupForm: FormGroup = new FormGroup({
     username: new FormControl(null, [
       Validators.required,
       Validators.minLength(3),
-      ManualValidators.cannotContainSpace
+      ManualValidators.cannotContainSpace,
+      ManualValidators.containSpecialCharacters
     ]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     mobileNumber: new FormControl(null, [
@@ -52,9 +63,25 @@ export class RegisterComponent {
       inputPlaceHolder: '****'
     }
   ]
-  constructor () {}
+  constructor (private store: Store) {}
 
   submit () {
-    if (this.signupForm.valid) console.log(this.signupForm.value)
+    this.store.dispatch(setErrorMessage({ message: '' }))
+    if (this.signupForm.invalid) return
+
+    const { email, mobileNumber } = this.signupForm.value
+    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.store.dispatch(signupStart({ email, mobileNumber }))
+  }
+
+  otpSubmit (otp: number) {
+    const { email, password, username, mobileNumber } = this.signupForm.value
+    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.store.dispatch(
+      otpConfirm({ email, password, username, mobileNumber, otp })
+    )
+  }
+  ngOnDestroy () {
+    this.store.dispatch(setOtp({ status: false }))
   }
 }

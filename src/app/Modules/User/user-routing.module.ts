@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { LoggeInAuthGuard } from './Guards/loggedIn.guard'
 import { LoginComponent } from './Pages/Auth/login/login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { PageManagerComponent } from './Pages/LandingPage/page-manager/page-manager.component'
@@ -11,8 +12,16 @@ const routes: Routes = [
     component: UserManagerComponent,
     children: [
       { path: '', component: PageManagerComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [LoggeInAuthGuard]
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        canActivate: [LoggeInAuthGuard]
+      }
     ]
   }
 ]

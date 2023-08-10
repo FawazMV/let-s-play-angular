@@ -1,4 +1,6 @@
 import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { getUserToken } from '../../Auth/store/auth.selectors'
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +8,7 @@ import { Component } from '@angular/core'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  isLogin$ = this.store.select(getUserToken)
   isOpen = false
   menus = [
     { name: 'HOME', link: '/' },
@@ -13,6 +16,8 @@ export class NavbarComponent {
     { name: 'TURF REGISTRATION', link: '/register-turf' },
     { name: 'CONTACT', link: '/contact-us' }
   ]
+
+  constructor (private store: Store) {}
 
   toggleMenu (): void {
     this.isOpen = !this.isOpen
