@@ -1,0 +1,6 @@
+.eye-slash-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor; /* To inherit the color from the parent element */
+  /* Add any additional styling you want */
+}

@@ -1,0 +1,46 @@
+<div class="w-full h-screen fixed top-0 bg-black opacity-50"></div>
+<div class="w-full fixed top-0 h-screen grid place-items-center">
+  <div class="p-14 bg-slate-700 rounded shadow text-center">
+    <h2 class="text-2xl font-semibold mb-4">OTP Verification</h2>
+    <div>
+      <div class="mt-4 grid grid-cols-4 gap-4 text-black font-extrabold">
+        <input
+          #input1
+          type="number"
+          class="border rounded w-14 px-2 py-2 text-center"
+          [(ngModel)]="enteredOtp[0]"
+          maxlength="1"
+        />
+        <input
+          #input2
+          type="number"
+          (keyup.backspace)="moveFocusBackward(input2, 2)"
+          class="border rounded w-14 px-2 py-2 text-center"
+          [(ngModel)]="enteredOtp[1]"
+          maxlength="1"
+        />
+        <input
+          #input3
+          type="number"
+          (keyup.backspace)="moveFocusBackward(input3, 3)"
+          class="border rounded w-14 px-2 py-2 text-center"
+          [(ngModel)]="enteredOtp[2]"
+          maxlength="1"
+        />
+        <input
+          #input4
+          type="number"
+          (keyup.backspace)="moveFocusBackward(input4, 4)"
+          class="border rounded w-14 px-2 py-2 text-center"
+          [(ngModel)]="enteredOtp[3]"
+          maxlength="1"
+        />
+      </div>
+    </div>
+    <auth-button
+      button="Verify OTP"
+      [disabled]="buttonDisabled()"
+      (onClick)="verifyOTP()"
+    />
+  </div>
+</div>

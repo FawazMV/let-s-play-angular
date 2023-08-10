@@ -11,12 +11,46 @@ export class UserAuthServiceService {
   constructor (private http: HttpClient) {}
 
   login (email: string, password: string): Observable<tokenState> {
-    console.log('first login')
     return this.http.post<tokenState>(this.url + '/login', { email, password })
+  }
+
+  signup (
+    email: string,
+    password: string,
+    username: string,
+    mobile: string
+  ): Observable<any> {
+    return this.http.post(this.url + '/register-user', {
+      email,
+      password,
+      username,
+      mobile
+    })
+  }
+
+  otpSend (email: string, mobile: string) {
+    return this.http.post(this.url + '/otp-send', {
+      email,
+      mobile
+    })
+  }
+
+  otpCheck (mobile: string, otp: number) {
+    return this.http.post(this.url + '/verify-otp', {
+      otp,
+      mobile
+    })
   }
 
   setUserLocalStorage (data: tokenState) {
     localStorage.setItem('user', data.token)
+  }
+  getUserLocalStorage (): string | null {
+    return localStorage.getItem('user')
+  }
+
+  setLocalStorageEmpty () {
+    localStorage.removeItem('user')
   }
 
   getErrorMessage (message: string) {
@@ -25,10 +59,14 @@ export class UserAuthServiceService {
         return 'Email Id not found'
       case 'Invalid credentials.':
         return 'Invalid credentials'
+      case 'Invalid credentials..':
+        return 'Invalid credentials'
       case 'Duplicate found':
         return 'Email Id already registered'
-      default:
+      default: {
+        if (message) return message
         return 'Unknow error occurred. Please try again'
+      }
     }
   }
 }

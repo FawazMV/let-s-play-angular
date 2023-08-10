@@ -1,5 +1,14 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import {
+  setErrorMessage,
+  setLoadingSpinner,
+  setOtp
+} from 'src/app/store/shared/shared.actions'
+import { otpSelector } from 'src/app/store/shared/shared.selector'
+import { ManualValidators } from 'src/app/Validators/validators'
+import { otpConfirm, signupStart } from '../store/auth.actions'
 
 @Component({
   selector: 'app-register',
@@ -7,95 +16,72 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  isOtp$ = this.store.select(otpSelector)
+
   signupForm: FormGroup = new FormGroup({
     username: new FormControl(null, [
       Validators.required,
-      Validators.minLength(3)
+      Validators.minLength(3),
+      ManualValidators.cannotContainSpace,
+      ManualValidators.containSpecialCharacters
     ]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     mobileNumber: new FormControl(null, [
       Validators.required,
-      Validators.maxLength(10),
-      Validators.minLength(10)
+      ManualValidators.cannotContainSpace,
+      ManualValidators.numberCheck
     ]),
     password: new FormControl(null, [
       Validators.required,
       Validators.minLength(3)
     ])
   })
-  constructor () {}
+
+  inputBoxes = [
+    {
+      inputId: 'username',
+      inputType: 'text',
+      labelName: 'Username',
+      inputPlaceHolder: 'Username'
+    },
+    {
+      inputId: 'email',
+      inputType: 'email',
+      labelName: 'Email address',
+      inputPlaceHolder: 'leroy@jenkins.com'
+    },
+    {
+      inputId: 'mobileNumber',
+      inputType: 'number',
+      labelName: 'Mobile Number',
+      inputPlaceHolder: '+91 ****3210'
+    },
+    {
+      inputId: 'password',
+      inputType: 'password',
+      labelName: 'Password',
+      inputPlaceHolder: '****'
+    }
+  ]
+  constructor (private store: Store) {}
 
   submit () {
-    console.log(this.signupForm.value)
+    this.store.dispatch(setErrorMessage({ message: '' }))
+    if (this.signupForm.invalid) return
+
+    const { email, mobileNumber } = this.signupForm.value
+    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.store.dispatch(signupStart({ email, mobileNumber }))
   }
 
-  // getErrors (input: string): string {
-  //   const showUsernameErrors = () => {
-  //     const usernameForm = this.signupForm?.get('username')
-  //     console.log(usernameForm)
-  //     if (usernameForm?.touched && !usernameForm.valid) {
-  //       if (usernameForm.getError('required')) return 'username is required'
-  //       if (usernameForm.getError('minlength'))
-  //         return 'username length should be minimum 3 letters'
-  //     }
-  //     return ''
-  //   }
-
-  //   console.log(input)
-  //   switch (input) {
-  //     case 'email':
-  //       return this.showEmailErrors()
-  //     case 'password':
-  //       return this.showPasswordErrors()
-  //     case 'mobileNumber':
-  //       return this.showMobileNumberErrors()
-  //     case 'username':
-  //       return showUsernameErrors()
-  //     default:
-  //       return 'invalid input'
-  //   }
-  // }
-
-  // private showEmailErrors (): string {
-  //   const emailForm = this.signupForm.get('email')
-  //   if (emailForm?.touched && emailForm.invalid) {
-  //     if (emailForm.getError('required')) return 'Email Id is required'
-  //     if (emailForm.getError('email')) return 'Email Id is not valid'
-  //   }
-  //   return ''
-  // }
-
-  // private showPasswordErrors (): string {
-  //   const passwordForm = this.signupForm.get('password')
-  //   if (passwordForm?.touched && !passwordForm.valid) {
-  //     if (passwordForm.getError('required')) return 'Password is required'
-  //     if (passwordForm.getError('minlength'))
-  //       return 'Password length should be minimum 3 letters'
-  //   }
-  //   return ''
-  // }
-
-  // private showMobileNumberErrors () {
-  //   const mobileNumberForm = this.signupForm.get('mobileNumber')
-  //   if (mobileNumberForm?.touched && mobileNumberForm.invalid) {
-  //     if (mobileNumberForm.getError('required'))
-  //       return 'Mobile nuber is required'
-  //     if (
-  //       mobileNumberForm.getError('minlength') ||
-  //       mobileNumberForm.getError('maxlength')
-  //     )
-  //       return 'Mobile number is invalid'
-  //   }
-  //   return ''
-  // }
-
-  // showUsernameErrors () {
-  //   const usernameForm = this.signupForm.get('username')
-  //   if (usernameForm?.touched && !usernameForm.valid) {
-  //     if (usernameForm.getError('required')) return 'username is required'
-  //     if (usernameForm.getError('minlength'))
-  //       return 'username length should be minimum 3 letters'
-  //   }
-  //   return ''
-  // }
+  otpSubmit (otp: number) {
+    const { email, password, username, mobileNumber } = this.signupForm.value
+    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.store.dispatch(
+      otpConfirm({ email, password, username, mobileNumber, otp })
+    )
+  }
+  ngOnDestroy () {
+    this.store.dispatch(setOtp({ status: false }))
+  }
 }

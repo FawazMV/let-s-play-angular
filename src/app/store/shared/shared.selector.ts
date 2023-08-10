@@ -16,3 +16,8 @@ export const modalMessageSelector = createSelector(
   getSharedState,
   state => state.modalMessage
 )
+
+export const otpSelector = createSelector(
+  getSharedState,
+  state => state.showOTP
+)

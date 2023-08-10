@@ -1,7 +1,9 @@
 <div
-  class="lg:py-32 py-28 fixed top-0 w-screen z-10 flex justify-center border-[0]"
+  class="absolute lg:top-32 top-28 w-full z-10 flex justify-center border-[0]"
 >
-  <div class="text-red-600 px-10 py-1 rounded bg-red-300 flex">
+  <div
+    class="text-red-600 md:px-14 px-5 py-2 rounded bg-red-300 flex overflow-hidden opacity-95 drop-shadow-2xl shadow-gray-400"
+  >
     <span> {{ errorMessage }} </span>
     <span class="h-5 w-5 mt-1 ml-5 cursor-pointer" (click)="removeError()">
       <svg>

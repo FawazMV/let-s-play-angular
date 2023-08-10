@@ -1,44 +1,35 @@
 <div class="grid place-items-center min-h-[85vh]">
   <div
-    class="flex items-center justify-center text-center bg-slate-800 text-gray-100"
+    class="max-w-md md:min-w-[434px] p-6 rounded-md sm:px-12 py-5 bg-slate-800"
   >
-    <form
-      [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
-      class="flex flex-col w-full max-w-lg p-12 rounded shadow-lg text-gray-100"
-    >
-      <h3 class="text-2xl font-semibold pb-4">Login Here</h3>
+    <div class="mb-3 text-center">
+      <h1 class="my-3 text-4xl font-bold">Login</h1>
+      <p class="text-sm text-gray-400">Sign in to access your account</p>
+    </div>
 
-      <label for="email" class="self-start text-xs font-semibold">Email</label>
-      <input
-        formControlName="email"
-        id="email"
-        type="email"
-        class="flex items-center h-12 px-4 mt-2 rounded focus:outline-none focus:ri text-gray-900 focus:border-violet-400 focus:ri"
-      />
-      <p class="text-red-500 text-xs py-1 text-left">{{ showEmailErrors() }}</p>
-      <label for="password" class="self-start mt-3 text-xs font-semibold"
-        >Password</label
-      >
-      <input
-        formControlName="password"
-        id="password"
-        type="password"
-        class="flex items-center h-12 px-4 mt-2 rounded focus:outline-none focus:ri text-gray-900 focus:border-violet-400 focus:ri"
-      />
-      <p class="text-red-500 text-xs py-1 text-left">
-        {{ showPasswordErrors() }}
-      </p>
-      <button
-        [disabled]="loginForm.invalid"
-        type="submit"
-        class="flex items-center disabled:cursor-not-allowed disabled:bg-violet-300 justify-center h-12 px-6 mt-8 text-sm font-semibold rounded bg-violet-400 text-gray-900"
-      >
-        Login
-      </button>
-      <div class="flex justify-center mt-6 space-x-2 text-xs">
-        <p class="text-gray-400">Don't have an account?</p>
-        <a routerLink="/register" class="text-blue-700">Register</a>
+    <form>
+      <div *ngFor="let x of inputBoxes">
+        <app-input-box
+          [inputId]="x.inputId"
+          [inputType]="x.inputType"
+          [labelName]="x.labelName"
+          [inputPlaceHolder]="x.inputPlaceHolder"
+          [inputFormControlName]="x.inputId"
+          [form]="loginForm"
+        />
+      </div>
+      <div class="space-y-2">
+        <auth-button
+          button="Login"
+          [disabled]="loginForm.invalid"
+          (onClick)="onSubmit()"
+        />
+        <p class="px-6 text-sm text-center text-gray-400">
+          Don't have an account ?
+          <a class="hover:underline text-violet-400" routerLink="/register"
+            >Signup here</a
+          >.
+        </p>
       </div>
     </form>
   </div>

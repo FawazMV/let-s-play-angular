@@ -12,12 +12,14 @@ import { ModalComponent } from './Components/modal/modal.component'
 import { ErrorMessageComponent } from './Components/error-message/error-message.component'
 import { appReducer } from './store/app.state'
 import { UserAuthEffects } from './Modules/User/Pages/Auth/store/auth.effects'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
     LoaderComponent,
     ModalComponent,
     ErrorMessageComponent
+    // OtpPageComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,9 @@ import { UserAuthEffects } from './Modules/User/Pages/Auth/store/auth.effects'
     UserModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([UserAuthEffects])
+    EffectsModule.forRoot([UserAuthEffects]),
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,11 @@ export const setLoadingSpinner = createAction(
   props<{ status: boolean }>()
 )
 
+export const setOtp = createAction(
+  '[shared state] set otp page',
+  props<{ status: boolean }>()
+)
+
 export const setErrorMessage = createAction(
   '[shared state] set error message',
   props<{ message: string }>()
