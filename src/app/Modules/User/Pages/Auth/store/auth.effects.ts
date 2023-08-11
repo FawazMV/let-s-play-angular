@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
 import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs'
-import { tokenState } from 'src/app/Models/app.models'
+import { TokenState } from 'src/app/Models/app.models'
 import {
   setErrorMessage,
   setLoadingSpinner,
@@ -34,7 +34,7 @@ export class UserAuthEffects {
       ofType(loginStart),
       exhaustMap(action =>
         this.service.login(action.email, action.password).pipe(
-          map((data: tokenState | any) => {
+          map((data: TokenState | any) => {
             this.store.dispatch(setLoadingSpinner({ status: false }))
             this.service.setUserLocalStorage(data)
             return loginSuccess({ user: data, redirect: true })

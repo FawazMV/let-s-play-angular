@@ -1,7 +1,7 @@
-import { tokenState } from 'src/app/Models/app.models'
+import { TokenState } from 'src/app/Models/app.models'
 
 export interface UserAuthState {
-  user: null | tokenState
+  user: null | TokenState
 }
 
 export const initialState: UserAuthState = {

@@ -1,0 +1,49 @@
+<div class="w-full flex justify-center">
+  <div *ngIf="turf">
+    <app-photo-manage [images]="turf.images" />
+    <div class="px-3 py-2 xs:px-4 xs:py-5 w-full">
+      <div class="w-full flex justify-between flex-wrap">
+        <h2 class="font-extrabold text-3xl uppercase tracking-widest">
+          {{ turf.courtName }}
+        </h2>
+        <div class="font-bold flex mt-2">
+          <p class="mr-1">(</p>
+          {{ turf.event }}
+          <p class="ml-1">)</p>
+        </div>
+      </div>
+      <div class="flex justify-between flex-wrap">
+        <div class="mt-1 font-semibold">
+          {{ turf.location }} , {{ turf.distric }}
+        </div>
+        <div class="mt-1 font-normal text-gray-400">
+          {{ turf.loction_Details }}
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <div class="mt-2">
+          <!-- <StarRating rating="rating" /> -->
+        </div>
+        <p class="mt-2 flex font-light text-sm">
+          <svg
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="mr-2 mt-1 bi bi-telephone-fill text-gray-300"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fillRule="evenodd"
+              d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"
+            />
+          </svg>
+          {{ turf.mobile }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w-full px-3 sm:px-5 md:px-20 lg:px-44 xl:px-[200px] md:py-6 mb-4">
+  <app-changing-tab />
+</div>

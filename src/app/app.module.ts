@@ -13,6 +13,7 @@ import { ErrorMessageComponent } from './Components/error-message/error-message.
 import { appReducer } from './store/app.state'
 import { UserAuthEffects } from './Modules/User/Pages/Auth/store/auth.effects'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { TurfEffects } from './Modules/User/store/turfs.effects'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     UserModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([UserAuthEffects]),
+    EffectsModule.forRoot([UserAuthEffects, TurfEffects]),
     ReactiveFormsModule,
     FormsModule
   ],

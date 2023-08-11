@@ -1,5 +1,7 @@
 import { UserAuthReducer } from '../Modules/User/Pages/Auth/store/auth.reducers'
 import { USER_AUTH_STATE } from '../Modules/User/Pages/Auth/store/auth.state'
+import { TurfReducer } from '../Modules/User/store/turfs.reducers'
+import { TURF_STATE } from '../Modules/User/store/turfs.state'
 import { SharedReducer } from './shared/shared.reducer'
 import { SharedState, SHARED_STATE_NAME } from './shared/shared.state'
 
@@ -9,5 +11,6 @@ export interface AppState {
 
 export const appReducer = {
   [SHARED_STATE_NAME]: SharedReducer,
-  [USER_AUTH_STATE]: UserAuthReducer
+  [USER_AUTH_STATE]: UserAuthReducer,
+  [TURF_STATE]: TurfReducer
 }

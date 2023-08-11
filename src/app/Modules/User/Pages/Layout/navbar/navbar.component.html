@@ -32,7 +32,7 @@
       }"
     >
       <li *ngFor="let menu of menus" class="text-sm lg:ml-8 lg:my-0 my-7">
-        <a href="menu.link">{{ menu.name }}</a>
+        <a [routerLink]="menu.link">{{ menu.name }}</a>
       </li>
 
       <button

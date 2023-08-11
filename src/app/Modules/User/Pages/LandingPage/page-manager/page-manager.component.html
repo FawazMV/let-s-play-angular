@@ -2,12 +2,14 @@
   class="flex justify-evenly items-end min-h-[80vh] w-full lg:flex-wrap flex-wrap-reverse"
 >
   <!-- content section -->
-  <div class="lg:w-[37%] mt-5 lg:mt-8">
-    <div class="px-10 w-fit">
-      <div class="text-5xl text-white font-extrabold">
+  <div class="w-full lg:w-[37%] mt-5 lg:mt-8">
+    <div class="px-2 xs:px-10 w-fit">
+      <div class="text-3xl xs:text-4xl sm:text-5xl text-white font-extrabold">
         Your Playground is just a tap away...
       </div>
-      <div class="flex w-full mt-5 xl:justify-between justify-evenly flex-wrap">
+      <div
+        class="flex w-full mt-5 justify-center xl:justify-between sm:justify-evenly flex-wrap"
+      >
         <app-button route="/turfs" color="bg-green-500" text="To Book Avenue" />
         <app-button
           route="/register-turf"

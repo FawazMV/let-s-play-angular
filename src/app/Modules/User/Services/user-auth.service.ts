@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { tokenState } from 'src/app/Models/app.models'
+import { TokenState } from 'src/app/Models/app.models'
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class UserAuthServiceService {
   private url = 'https://let-s-play-user-service.onrender.com'
   constructor (private http: HttpClient) {}
 
-  login (email: string, password: string): Observable<tokenState> {
-    return this.http.post<tokenState>(this.url + '/login', { email, password })
+  login (email: string, password: string): Observable<TokenState> {
+    return this.http.post<TokenState>(this.url + '/login', { email, password })
   }
 
   signup (
@@ -42,7 +42,7 @@ export class UserAuthServiceService {
     })
   }
 
-  setUserLocalStorage (data: tokenState) {
+  setUserLocalStorage (data: TokenState) {
     localStorage.setItem('user', data.token)
   }
   getUserLocalStorage (): string | null {
