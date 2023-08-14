@@ -1,0 +1,21 @@
+<div class="relative">
+  <input
+    #location
+    (keyup)="getLocation(location.value)"
+    id="location"
+    type="text"
+    class="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100"
+    placeholder="Choose your location"
+  />
+  <ul class="mt-4 w-full bg-white rounded-md absolute z-10 top-9">
+    <li
+      class="text-gray-800 border border-b-2 px-2 rounded cursor-pointer"
+      *ngFor="let result of searchResult"
+      (click)="onSelect(result)"
+    >
+      <span class="text-lg font-bold">{{ result.text }}</span>
+      <br />
+      {{ result.place_name }}
+    </li>
+  </ul>
+</div>

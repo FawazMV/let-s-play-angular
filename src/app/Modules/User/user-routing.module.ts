@@ -7,6 +7,7 @@ import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { LayoutPageManagerComponent } from './Pages/LandingPage/page-manager/page-manager.component'
 import { ErrorPageComponent } from './Pages/Layout/error-page/error-page.component'
 import { ProfilePageManagerComponent } from './Pages/Profile/page-manager/page-manager.component'
+import { TurfRegisterPageManagerComponent } from './Pages/Turf-Register/page-manager/page-manager.component'
 import { TurfDetailsPageManagerComponent } from './Pages/TurfDetails/page-manager/page-manager.component'
 import { UserManagerComponent } from './user-manager.component'
 
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'turfs', component: AllTurfsPageManagerComponent },
       { path: 'turf/:id', component: TurfDetailsPageManagerComponent },
       { path: 'profile', component: ProfilePageManagerComponent },
+      { path: 'register-turf', component: TurfRegisterPageManagerComponent },
       {
         path: 'login',
         component: LoginComponent

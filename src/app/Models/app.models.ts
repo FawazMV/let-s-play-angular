@@ -44,3 +44,17 @@ export interface UserProfileUpdateData {
   email: string
   mobile: string
 }
+
+export interface MapBoxResutl {
+  features: Features[]
+}
+
+export interface Features {
+  context: Context[]
+  text: string
+  place_name: string
+}
+interface Context {
+  id: string
+  text: string
+}

@@ -27,6 +27,12 @@ import { PasswordUpdateComponent } from './Pages/Profile/components/password-upd
 import { LogoutButtonComponent } from './Pages/Profile/components/logout-button/logout-button.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthInterceptor } from 'src/app/interceptors/user.inteceptor'
+import { TurfRegisterPageManagerComponent } from './Pages/Turf-Register/page-manager/page-manager.component'
+import { BannerComponent } from './Pages/Turf-Register/components/banner/banner.component'
+import { ContentComponent } from './Pages/Turf-Register/components/content/content.component'
+import { FormComponent } from './Pages/Turf-Register/components/form/form.component'
+import { ContactInfoComponent } from './Pages/Turf-Register/components/contact-info/contact-info.component';
+import { LocationSearchComponent } from './Pages/Layout/location-search/location-search.component'
 
 @NgModule({
   declarations: [
@@ -51,7 +57,13 @@ import { AuthInterceptor } from 'src/app/interceptors/user.inteceptor'
     ProfilePictureComponent,
     ProfileDetailsComponent,
     PasswordUpdateComponent,
-    LogoutButtonComponent
+    LogoutButtonComponent,
+    TurfRegisterPageManagerComponent,
+    BannerComponent,
+    ContentComponent,
+    FormComponent,
+    ContactInfoComponent,
+    LocationSearchComponent
   ],
   imports: [CommonModule, UserRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [
