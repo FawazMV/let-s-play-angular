@@ -41,6 +41,7 @@ export class LoginComponent {
   onSubmit () {
     this.store.dispatch(setErrorMessage({ message: '' }))
     if (this.loginForm.invalid) return
+
     const { email, password } = this.loginForm.value
     this.store.dispatch(setLoadingSpinner({ status: true }))
     this.store.dispatch(loginStart({ email, password }))

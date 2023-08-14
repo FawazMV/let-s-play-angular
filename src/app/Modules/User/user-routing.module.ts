@@ -6,6 +6,7 @@ import { LoginComponent } from './Pages/Auth/login/login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { LayoutPageManagerComponent } from './Pages/LandingPage/page-manager/page-manager.component'
 import { ErrorPageComponent } from './Pages/Layout/error-page/error-page.component'
+import { ProfilePageManagerComponent } from './Pages/Profile/page-manager/page-manager.component'
 import { TurfDetailsPageManagerComponent } from './Pages/TurfDetails/page-manager/page-manager.component'
 import { UserManagerComponent } from './user-manager.component'
 
@@ -17,10 +18,11 @@ const routes: Routes = [
       { path: '', component: LayoutPageManagerComponent },
       { path: 'turfs', component: AllTurfsPageManagerComponent },
       { path: 'turf/:id', component: TurfDetailsPageManagerComponent },
+      { path: 'profile', component: ProfilePageManagerComponent },
       {
         path: 'login',
-        component: LoginComponent,
-        canActivate: [LoggeInAuthGuard]
+        component: LoginComponent
+        // canActivate: [LoggeInAuthGuard]
       },
       {
         path: 'register',

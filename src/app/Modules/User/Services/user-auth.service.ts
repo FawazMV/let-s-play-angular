@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { environment } from 'src/app/environments/environments'
 import { TokenState } from 'src/app/Models/app.models'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthServiceService {
-  private url = 'https://let-s-play-user-service.onrender.com'
+  private url = environment.config.userApi
   constructor (private http: HttpClient) {}
 
   login (email: string, password: string): Observable<TokenState> {

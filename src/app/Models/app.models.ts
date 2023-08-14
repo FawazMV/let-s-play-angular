@@ -30,3 +30,17 @@ export interface Turf {
 export interface images {
   location: string
 }
+
+export interface UserProfile {
+  _id: string
+  username: string
+  email: string
+  mobile: string
+  profile?: string
+}
+
+export interface UserProfileUpdateData {
+  username: string
+  email: string
+  mobile: string
+}

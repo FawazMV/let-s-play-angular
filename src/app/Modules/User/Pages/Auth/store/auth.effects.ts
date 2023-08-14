@@ -14,7 +14,7 @@ import {
   autoLogin,
   loginStart,
   loginSuccess,
-  logOut,
+  logOutAction,
   otpConfirm,
   signupConfirm,
   signupStart
@@ -146,10 +146,10 @@ export class UserAuthEffects {
     )
   })
 
-  logOut$ = createEffect(
+  logOutAction$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(logOut),
+        ofType(logOutAction),
         tap(() => {
           this.service.setLocalStorageEmpty()
           this.router.navigate([''])

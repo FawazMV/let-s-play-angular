@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { environment } from 'src/app/environments/environments'
 import { Turf } from 'src/app/Models/app.models'
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurfService {
-  private url = 'https://let-s-play-turf-service.onrender.com'
+  private url = environment.config.turfApi
   constructor (private http: HttpClient) {}
 
   getAllTurfs () {

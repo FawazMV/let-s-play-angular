@@ -13,7 +13,6 @@ export class InputBoxComponent {
   @Input() labelName!: string
   @Input() inputFormControlName!: string
   @Input() form!: FormGroup
-
   showErrors (): string {
     const form = this.form.get(this.inputFormControlName)
     if (form?.touched && form.invalid) {

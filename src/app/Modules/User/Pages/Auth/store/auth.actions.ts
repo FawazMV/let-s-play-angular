@@ -39,4 +39,4 @@ export const signupConfirm = createAction(
 )
 export const autoLogin = createAction('[user auth page] autoLogin')
 
-export const logOut = createAction('[user auth page] log out')
+export const logOutAction = createAction('[user auth page] log out')
