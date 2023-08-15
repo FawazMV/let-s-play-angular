@@ -15,12 +15,7 @@ export class UserAuthServiceService {
     return this.http.post<TokenState>(this.url + '/login', { email, password })
   }
 
-  signup (
-    email: string,
-    password: string,
-    username: string,
-    mobile: string
-  ): Observable<any> {
+  signup (email: string, password: string, username: string, mobile: string) {
     return this.http.post(this.url + '/register-user', {
       email,
       password,

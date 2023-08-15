@@ -4,7 +4,7 @@
       <div class="lg:col-span-8 col-span-12">
         <div class="md:px-20 xl:px-36 px-10 py-10">
           <h1 class="font-bold text-3xl mb-7">PATNERSHIP FORM</h1>
-          <form [formGroup]="registerForm" class="w-full">
+          <form [formGroup]="registerForm" (submit)="onSubmit()" class="w-full">
             <div *ngFor="let x of inputBoxes" class="mb-4">
               <app-input-box
                 [inputId]="x.inputId"
@@ -20,7 +20,11 @@
                 <label for="location" class="block mb-2 text-sm"
                   >Location</label
                 >
-                <app-location-search />
+                <app-location-search
+                  (onLocBlur)="onLocBlur()"
+                  (onLocSelect)="onLocationSelect()"
+                />
+                <p class="text-red-500 text-[12px]">{{ onLocError() }}</p>
               </div>
             </div>
             <div *ngFor="let x of inputBoxes2" class="mb-4">
@@ -33,24 +37,8 @@
                 [form]="registerForm"
               />
             </div>
-            <div class="mb-4" key="img">
-              <label
-                class="block text-gray-600 font-semibold mb-2"
-                htmlFor="img"
-                >Turf Images</label
-              >
-              <div>
-                <div *ngFor="let preview of imagePreviews; let i = index">
-                  <img [src]="preview" alt="Image Preview" />
-                  <button type="button" (click)="removeImage(i)">Remove</button>
-                </div>
-                <input
-                  type="file"
-                  (change)="handleImageInput($event)"
-                  multiple
-                />
-              </div>
-            </div>
+            <app-image-input [form]="registerForm" />
+
             <button
               class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
@@ -64,3 +52,4 @@
     </div>
   </div>
 </div>
+<app-otp-page *ngIf="isOtp$ | async" (otpSubmit)="otpSubmit($event)" />

@@ -1,1 +1,40 @@
-<p>modal works!</p>
+<div class="fixed inset-x-0 sm:inset-0 transition"></div>
+<div class="fixed inset-0 transition-opacity">
+  <div class="absolute inset-0 bg-black opacity-80 transition"></div>
+</div>
+<div class="w-full fixed z-20 h-screen grid place-items-center">
+  <div class="absolute shadow-xl transform transition-all">
+    <div
+      class="flex flex-col max-w-md gap-2 p-6 min-w-[250px] rounded-md shadow-md bg-gray-900 text-gray-100"
+    >
+      <div class="w-full flex justify-center">
+        <h2
+          class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="h-10 w-10 text-gray-50 font-extrabold"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+            />
+          </svg>
+          Success
+        </h2>
+      </div>
+      <p class="flex-1 pt-2 text-gray-400">
+        {{ message$ | async }}
+      </p>
+      <div class="flex justify-center">
+        <button
+          (click)="closeModal()"
+          class="px-6 py-2 bg-green-600 hover:opacity-50' rounded-sm"
+        >
+          Ok
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

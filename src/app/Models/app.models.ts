@@ -58,3 +58,17 @@ interface Context {
   id: string
   text: string
 }
+
+export interface TurfRegisterDetails {
+  email: string
+  mobile: string
+  password: string
+  event: string
+  loction_Details: string
+  location: string
+  images: File[]
+  state: string
+  distric: string
+  courtName: string
+  otp?: number
+}

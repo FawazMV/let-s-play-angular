@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { Turf } from 'src/app/Models/app.models'
+import { Turf, TurfRegisterDetails } from 'src/app/Models/app.models'
 
 export const fetchAllTurfs = createAction(
   '[All turf page] fetching allTurfs start'
@@ -10,31 +10,17 @@ export const fetchAllTurfsSuccess = createAction(
   props<{ turfs: Turf[] }>()
 )
 
-// export const signupStart = createAction(
-//   '[All turf page] signup start',
-//   props<{ email: string; mobileNumber: string }>()
-// )
+export const trufOtpsend = createAction(
+  '[register turf] turf register otp send',
+  props<{ email: string; mobile: string }>()
+)
 
-// export const otpConfirm = createAction(
-//   '[All turf page] otp confirm',
-//   props<{
-//     email: string
-//     password: string
-//     username: string
-//     mobileNumber: string
-//     otp: number
-//   }>()
-// )
+export const otpConfirm = createAction(
+  '[register turf] turf register otp confirm',
+  props<{ data: FormData; otp: number; mobile: string }>()
+)
 
-// export const signupConfirm = createAction(
-//   '[All turf page] signup confirm',
-//   props<{
-//     email: string
-//     password: string
-//     username: string
-//     mobileNumber: string
-//   }>()
-// )
-// export const autoLogin = createAction('[All turf page] autoLogin')
-
-// export const logOut = createAction('[All turf page] log out')
+export const registerConfirrm = createAction(
+  '[register turf] turf register confirm',
+  props<{ data: FormData }>()
+)

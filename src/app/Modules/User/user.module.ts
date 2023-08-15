@@ -32,7 +32,8 @@ import { BannerComponent } from './Pages/Turf-Register/components/banner/banner.
 import { ContentComponent } from './Pages/Turf-Register/components/content/content.component'
 import { FormComponent } from './Pages/Turf-Register/components/form/form.component'
 import { ContactInfoComponent } from './Pages/Turf-Register/components/contact-info/contact-info.component';
-import { LocationSearchComponent } from './Pages/Layout/location-search/location-search.component'
+import { LocationSearchComponent } from './Pages/Layout/location-search/location-search.component';
+import { ImageInputComponent } from './Pages/Turf-Register/components/image-input/image-input.component'
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { LocationSearchComponent } from './Pages/Layout/location-search/location
     ContentComponent,
     FormComponent,
     ContactInfoComponent,
-    LocationSearchComponent
+    LocationSearchComponent,
+    ImageInputComponent
   ],
   imports: [CommonModule, UserRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [

@@ -4,5 +4,6 @@
     *ngIf="errorMessage$ | async as error"
     [errorMessage]="error"
   />
+  <app-modal *ngIf="showModal | async" />
   <router-outlet />
 </div>

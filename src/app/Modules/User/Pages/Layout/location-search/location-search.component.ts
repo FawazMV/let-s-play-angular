@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild
+} from '@angular/core'
 import { Features } from 'src/app/Models/app.models'
 import { CommonService } from 'src/app/Services/common.service'
 
@@ -13,7 +19,8 @@ export class LocationSearchComponent {
   location!: string
   state!: string
   @ViewChild('location') locationRef!: ElementRef
-
+  @Output() onLocSelect = new EventEmitter()
+  @Output() onLocBlur = new EventEmitter()
   constructor (private service: CommonService) {}
   getLocation (value: string) {
     this.service.getMapBoxlist(value).subscribe(data => {
@@ -31,5 +38,9 @@ export class LocationSearchComponent {
       if (x.id.includes('district')) this.distric = x.text
       if (x.id.includes('region')) this.state = x.text
     }
+    this.onLocSelect.emit()
+  }
+  onBlur () {
+    this.onLocBlur.emit()
   }
 }
