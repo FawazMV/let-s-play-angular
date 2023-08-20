@@ -1,0 +1,63 @@
+<div class="min-h-screen min-w-full text-white bg-gray-900">
+  <app-loader *ngIf="showLoading | async" />
+  <app-error-message
+    *ngIf="errorMessage$ | async as error"
+    [errorMessage]="error"
+  />
+  <app-modal *ngIf="showModal | async" />
+  <router-outlet />
+</div>
+
+<div ngxStripeCardGroup>
+  <h4>Enter payment details</h4>
+  <div>
+    <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+    <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+    <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+  </div>
+  <button (click)="pay()">Submit Payment</button>
+</div>
+
+<div
+  ngxStripeCardGroup
+  class="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+>
+  <h4 class="text-lg font-semibold mb-4">Enter Payment Details</h4>
+  <div class="space-y-4">
+    <div class="space-y-2">
+      <label class="text-sm font-medium text-gray-600">Card Number</label>
+      <div class="border border-gray-300 rounded-md p-2">
+        <ngx-stripe-card-number
+          [options]="cardOptions"
+          class="w-full"
+        ></ngx-stripe-card-number>
+      </div>
+    </div>
+    <div class="flex justify-between space-x-2">
+      <div class="w-1/2">
+        <label class="text-sm font-medium text-gray-600">Expiry Date</label>
+        <div class="border border-gray-300 rounded-md p-2">
+          <ngx-stripe-card-expiry
+            [options]="cardOptions"
+            class="w-full"
+          ></ngx-stripe-card-expiry>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <label class="text-sm font-medium text-gray-600">CVC</label>
+        <div class="border border-gray-300 rounded-md p-2">
+          <ngx-stripe-card-cvc
+            [options]="cardOptions"
+            class="w-full"
+          ></ngx-stripe-card-cvc>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="pay()"
+    class="w-full mt-6 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+  >
+    Submit Payment
+  </button>
+</div>

@@ -1,0 +1,11 @@
+<div class="mb-6" key="img">
+  <label class="block mb-2" htmlFor="img">Turf Images</label>
+  <div>
+    <div class="flex flex-wrap">
+      <div *ngFor="let preview of imagePreviews; let i = index">
+        <img [src]="preview" class="m-2 w-auto h-20" alt="Image Preview" />
+      </div>
+    </div>
+    <input type="file" (change)="handleImageInput($event)" multiple />
+  </div>
+</div>

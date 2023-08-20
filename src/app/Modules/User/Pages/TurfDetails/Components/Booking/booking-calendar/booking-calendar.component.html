@@ -1,0 +1,37 @@
+<div class="mwl-calendar-month-view text-gray-900 font-bold pt-5">
+  <div class="w-full flex justify-center">
+    <button
+      *ngIf="isPrevMonth()"
+      (click)="showPrevMonth()"
+      class="text-gray-300"
+    >
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          fillRule="evenodd"
+          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+        />
+      </svg>
+    </button>
+    <p class="text-white text-2xl p-4">{{ month }}</p>
+    <button (click)="showNextMonth()" class="text-gray-300">
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          fillRule="evenodd"
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <div class="min-w-[600px]">
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        (dayClicked)="onDayClick($event)"
+      ></mwl-calendar-month-view>
+    </div>
+  </div>
+</div>
+<div [ngClass]="!showDay ? 'min-h-[150px]' : 'min-h-0'" #showDate></div>
+
+<app-day-show [id]="turfId" [data]="bookedSlots" *ngIf="showDay" />

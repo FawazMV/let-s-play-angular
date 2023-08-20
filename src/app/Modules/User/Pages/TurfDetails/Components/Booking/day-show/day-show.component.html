@@ -1,0 +1,28 @@
+<div #showdate>
+  <div class="w-full md:px-20 py-5">
+    <div class="text-3xl tracking-widest py-9 font-bold w-full text-center">
+      <hr class="bg-indigo-600 mb-3 h-[2px] animate-pulse border-0" />
+      Available Time Slots
+      <hr class="bg-indigo-600 mt-3 h-[2px] animate-pulse border-0" />
+    </div>
+    <div class="flex px-3 mb-2 justify-between text-gray-400">
+      <p>Time Slots</p>
+      <p>Price</p>
+      <p>Available</p>
+    </div>
+
+    <div>
+      <div
+        *ngFor="let time of slots"
+        class="border-2 pl-5 flex justify-between rounded-md items-center mb-5"
+      >
+        <p>{{ time }}</p>
+        <p>₹ {{ price }}</p>
+        <button class="bg-green-500 h-full p-[10px] rounded-md">
+          Book Now
+        </button>
+      </div>
+      <!-- <Booked times="{times}" price="{price}" /> -->
+    </div>
+  </div>
+</div>
