@@ -1,5 +1,9 @@
 import { createReducer, on } from '@ngrx/store'
-import { fetchAllTurfsSuccess } from './turfs.actions'
+import {
+  fetchAllTurfsSuccess,
+  turfLoginSuccess,
+  turfLogOutAction
+} from './turfs.actions'
 import { initialState } from './turfs.state'
 
 const _turfReducer = createReducer(
@@ -8,6 +12,18 @@ const _turfReducer = createReducer(
     return {
       ...state,
       allturfs: action.turfs
+    }
+  }),
+  on(turfLoginSuccess, (state, action) => {
+    return {
+      ...state,
+      turf: { token: action.turf.token }
+    }
+  }),
+  on(turfLogOutAction, state => {
+    return {
+      ...state,
+      turf: null
     }
   })
 )

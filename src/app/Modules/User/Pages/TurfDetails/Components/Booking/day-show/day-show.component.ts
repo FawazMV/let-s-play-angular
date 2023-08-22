@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { getSingleTurf } from 'src/app/Modules/User/store/turf.selectors'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
+import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-day-show',
@@ -39,7 +39,6 @@ export class DayShowComponent implements OnInit {
   }
 
   toPayment (time: string) {
-    alert('time' + time)
     this.store.dispatch(setLoadingSpinner({ status: true }))
     this.bookTime = time
     this.payment = true

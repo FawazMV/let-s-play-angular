@@ -8,7 +8,7 @@ import { StripeCardNumberComponent, StripeService } from 'ngx-stripe'
 import { Observable, switchMap, tap } from 'rxjs'
 import { environment } from 'src/app/environments/environments'
 import { PaymentService } from 'src/app/Modules/User/Services/payment.service'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
+import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-payment',

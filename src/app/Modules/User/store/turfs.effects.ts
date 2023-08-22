@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { catchError, exhaustMap, map, of } from 'rxjs'
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs'
+import { TokenState } from 'src/app/Models/app.models'
 import {
   setErrorMessage,
   setLoadingSpinner,
   setModal,
   setOtp
-} from 'src/app/store/shared/shared.actions'
+} from 'src/app/Modules/shared/redux/shared.actions'
 import { TurfService } from '../Services/turf.service'
 import * as turfActions from './turfs.actions'
 @Injectable()
@@ -101,6 +102,73 @@ export class TurfEffects {
             })
           )
         )
+      )
+    },
+    { dispatch: false }
+  )
+
+  login$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(turfActions.turfLoginstart),
+      exhaustMap(action =>
+        this.service
+          .login({ email: action.email, password: action.password })
+          .pipe(
+            map((data: TokenState | any) => {
+              this.store.dispatch(setLoadingSpinner({ status: false }))
+              this.service.setUserLocalStorage(data)
+              return turfActions.turfLoginSuccess({
+                turf: data,
+                redirect: true
+              })
+            }),
+            catchError(errResp => {
+              this.store.dispatch(setLoadingSpinner({ status: false }))
+              const error = this.service.getErrorMessage(errResp.error.message)
+              return of(setErrorMessage({ message: error }))
+            })
+          )
+      )
+    )
+  })
+
+  autoLogin$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(turfActions.turfAutoLogin),
+      mergeMap(() => {
+        const data = this.service.getUserLocalStorage()
+        if (data)
+          return of(
+            turfActions.turfLoginSuccess({
+              turf: { token: data },
+              redirect: false
+            })
+          )
+        return of()
+      })
+    )
+  })
+
+  loginRedirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(turfActions.turfLoginSuccess),
+        tap(action => {
+          if (action.redirect) this.router.navigate(['/turf-admin'])
+        })
+      )
+    },
+    { dispatch: false }
+  )
+
+  logOutAction$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(turfActions.turfLogOutAction),
+        tap(() => {
+          this.service.setLocalStorageEmpty()
+          this.router.navigate(['/turf-login'])
+        })
       )
     },
     { dispatch: false }

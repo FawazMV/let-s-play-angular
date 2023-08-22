@@ -1,32 +1,30 @@
 import { Injectable } from '@angular/core'
 import {
-  HttpErrorResponse,
-  HttpEvent,
+  HttpRequest,
   HttpHandler,
+  HttpEvent,
   HttpInterceptor,
-  HttpRequest
+  HttpErrorResponse
 } from '@angular/common/http'
-import { Observable, throwError } from 'rxjs'
-import { catchError, switchMap, take } from 'rxjs/operators'
+import { catchError, Observable, switchMap, throwError } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { getUserToken } from '../Modules/User/Pages/Auth/store/auth.selectors'
 import {
   setErrorMessage,
   setLoadingSpinner
-} from '../store/shared/shared.actions'
+} from '../Modules/shared/redux/shared.actions'
+import { getUserToken } from '../Modules/User/Pages/Auth/store/auth.selectors'
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class UserInterceptor implements HttpInterceptor {
   constructor (private store: Store) {}
 
   intercept (
-    req: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     return this.store.select(getUserToken).pipe(
-      take(1),
       switchMap(token => {
-        const clonedReq = req.clone({
+        const clonedReq = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
           }
@@ -34,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
         return next.handle(clonedReq).pipe(
           catchError((error: HttpErrorResponse) => {
-            // Handle the error here, for example, log it, show a notification, etc.
             let errorMessage = error.error?.message
               ? error.error.message
               : error.error?.error

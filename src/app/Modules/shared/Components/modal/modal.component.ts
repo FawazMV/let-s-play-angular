@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { setModal } from 'src/app/store/shared/shared.actions'
-import { modalMessageSelector } from 'src/app/store/shared/shared.selector'
+import { setModal } from 'src/app/Modules/shared/redux/shared.actions'
+import { modalMessageSelector } from 'src/app/Modules/shared/redux/shared.selector'
 
 @Component({
   selector: 'app-modal',

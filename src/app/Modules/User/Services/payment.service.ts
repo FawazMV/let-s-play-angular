@@ -5,9 +5,7 @@ import { StripeCardNumberComponent, StripeService } from 'ngx-stripe'
 import { environment } from 'src/app/environments/environments'
 import { SuccessPageData } from 'src/app/Models/app.models'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PaymentService {
   private url = environment.config.userApi
   constructor (private http: HttpClient, private stripe: StripeService) {}

@@ -8,7 +8,7 @@ import {
   setErrorMessage,
   setLoadingSpinner,
   setOtp
-} from 'src/app/store/shared/shared.actions'
+} from 'src/app/Modules/shared/redux/shared.actions'
 import { UserAuthServiceService } from '../../../Services/user-auth.service'
 import {
   autoLogin,

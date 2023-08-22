@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store'
-import { Turf, TurfRegisterDetails } from 'src/app/Models/app.models'
+import {
+  Logindata,
+  TokenState,
+  Turf,
+  TurfRegisterDetails
+} from 'src/app/Models/app.models'
 
 export const fetchAllTurfs = createAction(
   '[All turf page] fetching allTurfs start'
@@ -24,3 +29,17 @@ export const registerConfirrm = createAction(
   '[register turf] turf register confirm',
   props<{ data: FormData }>()
 )
+
+export const turfLoginstart = createAction(
+  '[turf login page] login start',
+  props<Logindata>()
+)
+
+export const turfLoginSuccess = createAction(
+  '[turf auth page] login success',
+  props<{ turf: TokenState; redirect: boolean }>()
+)
+
+export const turfAutoLogin = createAction('[turf auth page] autoLogin')
+
+export const turfLogOutAction = createAction('[turf auth page] log out')

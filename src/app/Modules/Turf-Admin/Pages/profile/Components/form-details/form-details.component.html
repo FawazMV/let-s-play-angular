@@ -1,0 +1,84 @@
+<form>
+  <div>
+    <div class="sm:flex sm:justify-between">
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="courtName"
+          inputType="text"
+          inputFormControlName="courtName"
+          inputPlaceHolder="Court Name"
+          labelName="Court Name"
+        />
+      </div>
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="courtName"
+          inputType="number"
+          inputFormControlName="enquiryNumber"
+          inputPlaceHolder="Enquiry Number"
+          labelName="Enquiry Number"
+        />
+      </div>
+    </div>
+    <div class="sm:flex sm:justify-between">
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="price"
+          inputType="number"
+          inputFormControlName="Price"
+          inputPlaceHolder="₹***"
+          labelName="Rate For Each Slot"
+        />
+      </div>
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="Holiday"
+          inputType="text"
+          inputFormControlName="Holiday"
+          inputPlaceHolder="Sunday"
+          labelName="Default Holiday"
+        />
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <app-input-box
+        [form]="form"
+        inputId="loction_Details"
+        inputType="text"
+        inputFormControlName="loction_Details"
+        inputPlaceHolder="Turf Location Details"
+        labelName="Location Details"
+      />
+    </div>
+    <div class="sm:flex sm:justify-between">
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="openingTime"
+          inputType="time"
+          inputFormControlName="openingTime"
+          inputPlaceHolder=""
+          labelName="Turf Opening Time"
+        />
+      </div>
+      <div class="mb-4">
+        <app-input-box
+          [form]="form"
+          inputId="closingTime"
+          inputType="time"
+          inputFormControlName="closingTime"
+          inputPlaceHolder=""
+          labelName="Turf Closing Time"
+        />
+      </div>
+    </div>
+    <div class="mb-4">
+      <app-image-input [defaultImages]="details.images" [form]="form" />
+    </div>
+  </div>
+</form>

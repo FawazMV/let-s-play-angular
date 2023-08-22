@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import {
   setErrorMessage,
   setLoadingSpinner
-} from 'src/app/store/shared/shared.actions'
-import { loginStart } from '../store/auth.actions'
+} from 'src/app/Modules/shared/redux/shared.actions'
+import { loginStart } from '../../store/auth.actions'
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   constructor (private store: Store) {}
+
+  @Output() submit = new EventEmitter()
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -44,7 +46,7 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value
     this.store.dispatch(setLoadingSpinner({ status: true }))
-    this.store.dispatch(loginStart({ email, password }))
+    this.submit.emit({ email, password })
   }
 
   ngOnDestroy () {

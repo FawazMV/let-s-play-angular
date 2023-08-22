@@ -5,8 +5,8 @@ import {
   setErrorMessage,
   setLoadingSpinner,
   setOtp
-} from 'src/app/store/shared/shared.actions'
-import { otpSelector } from 'src/app/store/shared/shared.selector'
+} from 'src/app/Modules/shared/redux/shared.actions'
+import { otpSelector } from 'src/app/Modules/shared/redux/shared.selector'
 import { ManualValidators } from 'src/app/Validators/validators'
 import { otpConfirm, signupStart } from '../store/auth.actions'
 

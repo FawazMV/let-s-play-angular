@@ -12,3 +12,7 @@ export const getSingleTurf = (id: string) => {
     return state.allturfs?.find(t => t._id === id)
   })
 }
+
+export const getTurfToken = createSelector(getTurfState, state => {
+  return state?.turf?.token
+})

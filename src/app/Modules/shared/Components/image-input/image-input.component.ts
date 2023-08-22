@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
 
 @Component({
@@ -6,12 +6,19 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
   templateUrl: './image-input.component.html',
   styleUrls: ['./image-input.component.css']
 })
-export class ImageInputComponent {
+export class ImageInputComponent implements OnInit {
   imagePreviews: string[] = []
 
   @Input() form!: FormGroup
+  @Input() defaultImages!: { location: string }[]
 
   constructor (private fb: FormBuilder) {}
+
+  ngOnInit (): void {
+    if (this.defaultImages?.length) {
+      this.imagePreviews = this.defaultImages.map(x => x.location)
+    }
+  }
 
   get images (): FormArray {
     return this.form.get('images') as FormArray
@@ -21,6 +28,7 @@ export class ImageInputComponent {
     const files: FileList | null = (event.target as HTMLInputElement).files
 
     if (files && files.length > 0) {
+      this.imagePreviews = []
       for (let i = 0; i < files.length; i++) {
         const file: File = files[i]
         this.images.push(this.fb.control(file)) // Add the selected files to the FormArray

@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { environment } from 'src/app/environments/environments'
-import { Turf, TurfRegisterDetails } from 'src/app/Models/app.models'
+import {
+  Logindata,
+  TokenState,
+  Turf,
+  TurfRegisterDetails
+} from 'src/app/Models/app.models'
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +39,21 @@ export class TurfService {
     return this.http.get<[]>(
       this.url + `/booked-slots?date=${isoDateString}&id=${id}`
     )
+  }
+
+  login (data: Logindata) {
+    return this.http.post(this.url + '/turf-login', data)
+  }
+
+  setUserLocalStorage (data: TokenState) {
+    localStorage.setItem('turf', data.token)
+  }
+  getUserLocalStorage (): string | null {
+    return localStorage.getItem('turf')
+  }
+
+  setLocalStorageEmpty () {
+    localStorage.removeItem('turf')
   }
 
   getErrorMessage (message: string) {

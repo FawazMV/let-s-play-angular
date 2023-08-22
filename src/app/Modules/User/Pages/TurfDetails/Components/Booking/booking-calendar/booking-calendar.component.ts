@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { CalendarEvent } from 'angular-calendar'
 import { TurfService } from 'src/app/Modules/User/Services/turf.service'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
+import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-booking-calendar',

@@ -18,11 +18,11 @@ import {
   trufOtpsend
 } from 'src/app/Modules/User/store/turfs.actions'
 import { CommonService } from 'src/app/Services/common.service'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
-import { otpSelector } from 'src/app/store/shared/shared.selector'
+import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
+import { otpSelector } from 'src/app/Modules/shared/redux/shared.selector'
 import { ManualValidators as MV } from 'src/app/Validators/validators'
 import { LocationSearchComponent } from '../../../Layout/location-search/location-search.component'
-import { ImageInputComponent } from '../image-input/image-input.component'
+import { ImageInputComponent } from 'src/app/Modules/shared/Components/image-input/image-input.component'
 
 @Component({
   selector: 'app-form',

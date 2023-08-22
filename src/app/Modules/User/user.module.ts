@@ -5,12 +5,8 @@ import { UserRoutingModule } from './user-routing.module'
 import { UserManagerComponent } from './user-manager.component'
 import { NavbarComponent } from './Pages/Layout/navbar/navbar.component'
 import { LayoutPageManagerComponent } from './Pages/LandingPage/page-manager/page-manager.component'
-import { LoginComponent } from './Pages/Auth/login/login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { InputBoxComponent } from './Pages/Layout/input-box/input-box.component'
-import { ButtonComponent } from './Pages/Auth/components/button/button.component'
-import { OtpPageComponent } from 'src/app/Components/otp-page/otp-page.component'
 import { LandigButtonComponent } from './Pages/LandingPage/components/button/button.component'
 import { AllTurfsPageManagerComponent } from './Pages/AllTurf/page-manager/page-manager.component'
 import { TurfShimmerComponent } from './Pages/AllTurf/components/turf-shimmer/turf-shimmer.component'
@@ -26,14 +22,12 @@ import { ProfileDetailsComponent } from './Pages/Profile/components/profile-deta
 import { PasswordUpdateComponent } from './Pages/Profile/components/password-update/password-update.component'
 import { LogoutButtonComponent } from './Pages/Profile/components/logout-button/logout-button.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
-import { AuthInterceptor } from 'src/app/interceptors/user.inteceptor'
 import { TurfRegisterPageManagerComponent } from './Pages/Turf-Register/page-manager/page-manager.component'
 import { BannerComponent } from './Pages/Turf-Register/components/banner/banner.component'
 import { ContentComponent } from './Pages/Turf-Register/components/content/content.component'
 import { FormComponent } from './Pages/Turf-Register/components/form/form.component'
 import { ContactInfoComponent } from './Pages/Turf-Register/components/contact-info/contact-info.component'
 import { LocationSearchComponent } from './Pages/Layout/location-search/location-search.component'
-import { ImageInputComponent } from './Pages/Turf-Register/components/image-input/image-input.component'
 import { CalendarModule, DateAdapter } from 'angular-calendar'
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 import { DayShowComponent } from './Pages/TurfDetails/Components/Booking/day-show/day-show.component'
@@ -41,8 +35,15 @@ import { PaymentComponent } from './Pages/TurfDetails/Components/Booking/payment
 import { NgxStripeModule } from 'ngx-stripe'
 import { environment } from 'src/app/environments/environments'
 import { FailedComponent } from './Pages/failed/failed.component'
-import { SuccessComponent } from './Pages/success/success.component';
+import { SuccessComponent } from './Pages/success/success.component'
 import { BookingsComponent } from './Pages/bookings/bookings.component'
+import { SharedModule } from '../shared/shared.module'
+import { TurfLoginComponent } from './Pages/Auth/login/turf-login/turf-login.component'
+import { UserLoginComponent } from './Pages/Auth/login/user-login/user-login.component'
+import { LoginComponent } from './Pages/Auth/login/components/login.component'
+import { UserInterceptor } from 'src/app/interceptors/user.interceptor'
+import { UserService } from './Services/user.service'
+import { PaymentService } from './Services/payment.service'
 
 @NgModule({
   declarations: [
@@ -51,10 +52,7 @@ import { BookingsComponent } from './Pages/bookings/bookings.component'
     LayoutPageManagerComponent,
     LoginComponent,
     RegisterComponent,
-    InputBoxComponent,
-    ButtonComponent,
     LandigButtonComponent,
-    OtpPageComponent,
     AllTurfsPageManagerComponent,
     TurfShimmerComponent,
     TurfCardComponent,
@@ -74,12 +72,13 @@ import { BookingsComponent } from './Pages/bookings/bookings.component'
     FormComponent,
     ContactInfoComponent,
     LocationSearchComponent,
-    ImageInputComponent,
     DayShowComponent,
     PaymentComponent,
     FailedComponent,
     SuccessComponent,
-    BookingsComponent
+    BookingsComponent,
+    TurfLoginComponent,
+    UserLoginComponent
   ],
   imports: [
     CommonModule,
@@ -90,10 +89,13 @@ import { BookingsComponent } from './Pages/bookings/bookings.component'
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    SharedModule,
     NgxStripeModule.forRoot(environment.config.stripe.publicKey)
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    UserService,
+    PaymentService,
+    { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }
   ]
 })
 export class UserModule {}

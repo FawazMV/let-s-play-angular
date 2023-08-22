@@ -92,3 +92,37 @@ export interface BookingsData {
   payment: string
   createdAt: string
 }
+
+export interface Logindata {
+  email: string
+  password: string
+}
+
+export interface TurfProfileState {
+  _id: string
+  courtName: string
+  email: string
+  mobile: string
+  images: images[]
+  location: string
+  loction_Details: string
+  distric: string
+  state: string
+  Holiday?: string
+  event: string
+  Price?: number
+  closingTime?: string
+  enquiryNumber?: string
+  openingTime?: string
+}
+
+export interface TurfProfileUpdateState {
+  courtName: string
+  images: images[]
+  loction_Details: string
+  Holiday: string
+  Price: string
+  closingTime: string
+  enquiryNumber: string
+  openingTime: string
+}

@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { signGuard, userAuthGuard } from './Guards/user-auth.guard'
+import {
+  signGuard,
+  turfSignGuard,
+  userAuthGuard
+} from './Guards/user-auth.guard'
 import { AllTurfsPageManagerComponent } from './Pages/AllTurf/page-manager/page-manager.component'
-import { LoginComponent } from './Pages/Auth/login/login.component'
+import { TurfLoginComponent } from './Pages/Auth/login/turf-login/turf-login.component'
+import { UserLoginComponent } from './Pages/Auth/login/user-login/user-login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
 import { BookingsComponent } from './Pages/bookings/bookings.component'
 import { FailedComponent } from './Pages/failed/failed.component'
@@ -35,8 +40,13 @@ const routes: Routes = [
       { path: 'register-turf', component: TurfRegisterPageManagerComponent },
       {
         path: 'login',
-        component: LoginComponent,
+        component: UserLoginComponent,
         canActivate: [signGuard]
+      },
+      {
+        path: 'turf-login',
+        component: TurfLoginComponent,
+        canActivate: [turfSignGuard]
       },
       {
         path: 'register',

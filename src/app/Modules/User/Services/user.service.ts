@@ -7,11 +7,8 @@ import {
   UserProfile,
   UserProfileUpdateData
 } from 'src/app/Models/app.models'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
   private url = environment.config.userApi
 

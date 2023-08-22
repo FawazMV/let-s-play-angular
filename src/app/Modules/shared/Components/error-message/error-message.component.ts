@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { setErrorMessage } from 'src/app/store/shared/shared.actions'
+import { setErrorMessage } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-error-message',

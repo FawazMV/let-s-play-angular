@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { UserProfile, UserProfileUpdateData } from 'src/app/Models/app.models'
-import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
+import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 import { UserService } from '../../../Services/user.service'
 import { ProfileDetailsComponent } from '../components/profile-details/profile-details.component'
 
