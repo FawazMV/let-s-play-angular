@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { environment } from 'src/app/environments/environments'
-import { UserProfile, UserProfileUpdateData } from 'src/app/Models/app.models'
+import {
+  BookingsData,
+  UserProfile,
+  UserProfileUpdateData
+} from 'src/app/Models/app.models'
 import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
 
 @Injectable({
@@ -19,5 +23,9 @@ export class UserService {
 
   updateProfile (values: UserProfileUpdateData) {
     return this.http.put<UserProfile>(this.url + '/profile/update', values)
+  }
+
+  getBookings () {
+    return this.http.get<BookingsData[]>(this.url + '/book/details')
   }
 }

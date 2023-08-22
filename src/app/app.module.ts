@@ -14,10 +14,8 @@ import { appReducer } from './store/app.state'
 import { UserAuthEffects } from './Modules/User/Pages/Auth/store/auth.effects'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TurfEffects } from './Modules/User/store/turfs.effects'
-import { NgxStripeModule } from 'ngx-stripe'
 // import { provideNgxStripe } from 'ngx-stripe'
 
-import { environment } from './environments/environments'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +31,7 @@ import { environment } from './environments/environments'
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([UserAuthEffects, TurfEffects]),
     ReactiveFormsModule,
-    FormsModule,
-    NgxStripeModule.forRoot(environment.config.stripe.publicKey)
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

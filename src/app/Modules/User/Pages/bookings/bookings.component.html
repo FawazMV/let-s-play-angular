@@ -1,0 +1,108 @@
+<div class="mt-10 bg-gray-800">
+  <section
+    class="mx-auto sm:p-4 container flex flex-col md:p-10 bg-gray-800 text-gray-50"
+  >
+    <fieldset
+      class="grid grid-cols-4 gap-6 p-14 rounded-md shadow-sm bg-gray-900"
+    >
+      <span class="col-span-full text-center text-3xl font-bold"
+        >Your Bookings</span
+      >
+      <div class="col-span-full w-full overflow-x-auto">
+        <!-- <BookingList data="data" /> -->
+
+        <div class="w-full overflow-x-auto">
+          <table
+            class="mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden"
+          >
+            <thead class="bg-gray-700">
+              <tr class="text-gray-100 text-left">
+                <th class="font-semibold text-sm uppercase px-5 py-4">Sl No</th>
+                <th class="font-semibold text-sm uppercase px-24 py-4">
+                  Booking ID
+                </th>
+                <th class="font-semibold text-sm uppercase px-14 py-4">Turf</th>
+                <th class="font-semibold text-sm uppercase px-5 py-4">
+                  Booked Date
+                </th>
+                <th class="font-semibold text-sm uppercase px-4 py-4">
+                  Booked Time
+                </th>
+                <th class="font-semibold text-sm uppercase px-12 py-4">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <!-- data.filter(booking => new Date() < new Date(data.bookDate) || showAllBookings).map(booking => ( -->
+              <tr
+                *ngFor="let data of filterBookings; let i = index"
+                class="hover:bg-gray-600 border-b border-opacity-60 border-gray-400 bg-gray-800"
+              >
+                <td class="px-6 py-4">{{ i + 1 }}</td>
+                <td class="px-6 py-4">#{{ data._id }}</td>
+                <td class="px-6 py-4">{{ data.turf.courtName }}</td>
+                <td class="px-6 py-4">
+                  {{ data.bookDate | date }}
+                </td>
+                <td class="px-6 py-4">{{ data.time }}</td>
+                <td class="px-6 py-4">
+                  <span
+                    *ngIf="data.payment === 'Success'; else falseSpan"
+                    class="inline-block bg-green-500 text-gray-100 rounded-full px-4 py-1 font-semibold"
+                  >
+                    Successful
+                  </span>
+                  <ng-template #falseSpan>
+                    <span
+                      class="inline-block bg-red-500 text-gray-100 rounded-full px-8 py-1 font-semibold"
+                    >
+                      Failed
+                    </span>
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex justify-center sm:px-20 lg:justify-end">
+            <div
+              *ngIf="!isShowAll; else showLessTem"
+              (click)="showAll()"
+              class="cursor-pointer font-semibold flex items-center text-gray-500 text-xs"
+            >
+              Show All
+              <span class="mr-1">
+                <svg fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"
+                  />
+                </svg>
+              </span>
+              <button class="mr-5 my-2"></button>
+            </div>
+
+            <ng-template #showLessTem>
+              <div
+                (click)="showLess()"
+                class="cursor-pointer font-semibold flex items-center text-gray-500 text-xs"
+              >
+                Show Less
+                <span class="mr-1">
+                  <svg fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
+                    <path
+                      fillRule="evenodd"
+                      d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"
+                    />
+                  </svg>
+                </span>
+                <button class="mr-5 my-2"></button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+</div>
+<!-- "M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" -->

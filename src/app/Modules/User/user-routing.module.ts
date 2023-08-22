@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { LoggeInAuthGuard } from './Guards/loggedIn.guard'
-import { UserAuthGuard } from './Guards/userlogout.guard'
+import { signGuard, userAuthGuard } from './Guards/user-auth.guard'
 import { AllTurfsPageManagerComponent } from './Pages/AllTurf/page-manager/page-manager.component'
 import { LoginComponent } from './Pages/Auth/login/login.component'
 import { RegisterComponent } from './Pages/Auth/register/register.component'
+import { BookingsComponent } from './Pages/bookings/bookings.component'
+import { FailedComponent } from './Pages/failed/failed.component'
 import { LayoutPageManagerComponent } from './Pages/LandingPage/page-manager/page-manager.component'
 import { ErrorPageComponent } from './Pages/Layout/error-page/error-page.component'
 import { ProfilePageManagerComponent } from './Pages/Profile/page-manager/page-manager.component'
+import { SuccessComponent } from './Pages/success/success.component'
 import { TurfRegisterPageManagerComponent } from './Pages/Turf-Register/page-manager/page-manager.component'
 import { TurfDetailsPageManagerComponent } from './Pages/TurfDetails/page-manager/page-manager.component'
 import { UserManagerComponent } from './user-manager.component'
@@ -23,19 +25,26 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePageManagerComponent,
-        canActivate: [UserAuthGuard]
+        canActivate: [userAuthGuard]
+      },
+      {
+        path: 'bookings',
+        component: BookingsComponent,
+        canActivate: [userAuthGuard]
       },
       { path: 'register-turf', component: TurfRegisterPageManagerComponent },
       {
         path: 'login',
         component: LoginComponent,
-        canActivate: [LoggeInAuthGuard]
+        canActivate: [signGuard]
       },
       {
         path: 'register',
         component: RegisterComponent,
-        canActivate: [LoggeInAuthGuard]
+        canActivate: [signGuard]
       },
+      { path: 'payment-errors', component: FailedComponent },
+      { path: 'success-page', component: SuccessComponent },
       { path: '**', component: ErrorPageComponent }
     ]
   }

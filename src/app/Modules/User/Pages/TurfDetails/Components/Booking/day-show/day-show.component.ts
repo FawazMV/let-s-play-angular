@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { getSingleTurf } from 'src/app/Modules/User/store/turf.selectors'
+import { setLoadingSpinner } from 'src/app/store/shared/shared.actions'
 
 @Component({
   selector: 'app-day-show',
@@ -10,11 +11,13 @@ import { getSingleTurf } from 'src/app/Modules/User/store/turf.selectors'
 export class DayShowComponent implements OnInit {
   @Input('data') timeSlots!: any[]
   @Input('id') turfId!: string
+  @Input('date') date!: Date
   slots: any[] = []
   startTime!: string
   endTime!: string
   price!: number
-
+  payment: boolean = false
+  bookTime!: string
   constructor (private store: Store) {}
 
   ngOnInit () {
@@ -35,7 +38,15 @@ export class DayShowComponent implements OnInit {
       .unsubscribe()
   }
 
+  toPayment (time: string) {
+    alert('time' + time)
+    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.bookTime = time
+    this.payment = true
+  }
+
   getTimeSlots () {
+    console.log(this.timeSlots)
     const timeSlots = []
     const gap = 60
     const startDate = new Date(`2000-01-01T${this.startTime}:00`)
@@ -50,7 +61,7 @@ export class DayShowComponent implements OnInit {
         minute: 'numeric'
       })
       if (time.split(':')[0].length === 1) time = '0' + time
-      if (!this.timeSlots.includes(time)) timeSlots.push(time)
+      if (!this.timeSlots.find(x => x.time === time)) timeSlots.push(time)
     }
     return timeSlots
   }

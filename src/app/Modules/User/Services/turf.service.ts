@@ -30,7 +30,10 @@ export class TurfService {
   }
 
   getBookedSlots (date: Date, id: string) {
-    return this.http.get<[]>(this.url + `/booked-slots?date=${date}&id=${id}`)
+    const isoDateString = date.toISOString()
+    return this.http.get<[]>(
+      this.url + `/booked-slots?date=${isoDateString}&id=${id}`
+    )
   }
 
   getErrorMessage (message: string) {

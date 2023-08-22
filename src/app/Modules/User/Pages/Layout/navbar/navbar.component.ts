@@ -14,7 +14,7 @@ export class NavbarComponent {
     { name: 'HOME', link: '/' },
     { name: 'TURF BOOKING', link: '/turfs' },
     { name: 'TURF REGISTRATION', link: '/register-turf' },
-    { name: 'CONTACT', link: '/contact-us' }
+    { name: 'BOOKINGS', link: '/bookings' }
   ]
 
   constructor (private store: Store) {}

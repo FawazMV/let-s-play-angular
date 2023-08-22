@@ -34,4 +34,9 @@
 </div>
 <div [ngClass]="!showDay ? 'min-h-[150px]' : 'min-h-0'" #showDate></div>
 
-<app-day-show [id]="turfId" [data]="bookedSlots" *ngIf="showDay" />
+<app-day-show
+  [id]="turfId"
+  [date]="date"
+  [data]="bookedSlots"
+  *ngIf="showDay"
+/>

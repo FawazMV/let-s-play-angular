@@ -18,7 +18,10 @@
       >
         <p>{{ time }}</p>
         <p>₹ {{ price }}</p>
-        <button class="bg-green-500 h-full p-[10px] rounded-md">
+        <button
+          class="bg-green-500 h-full p-[10px] rounded-md"
+          (click)="toPayment(time)"
+        >
           Book Now
         </button>
       </div>
@@ -26,3 +29,5 @@
     </div>
   </div>
 </div>
+
+<app-payment *ngIf="payment" [date]="date" [time]="bookTime" [turf]="turfId" />

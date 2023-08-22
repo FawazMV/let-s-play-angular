@@ -72,3 +72,23 @@ export interface TurfRegisterDetails {
   courtName: string
   otp?: number
 }
+
+export interface SuccessPageData {
+  _id: string
+  bookDate: Date
+  time: string
+  user: {
+    email: string
+  }
+}
+
+export interface BookingsData {
+  _id: string
+  turf: {
+    courtName: string
+  }
+  bookDate: Date
+  time: string
+  payment: string
+  createdAt: string
+}

@@ -17,6 +17,7 @@ export class BookingCalendarComponent {
   events: CalendarEvent[] = []
   showDay = false
   turfId!: string
+  date!: Date
   bookedSlots = []
   @ViewChild('showDate') showDateRef!: ElementRef
   constructor (
@@ -33,11 +34,13 @@ export class BookingCalendarComponent {
   }
 
   onDayClick ($event: any) {
+    this.date = $event.day.date
     this.store.dispatch(setLoadingSpinner({ status: true }))
     this.service
       .getBookedSlots($event.day.date, this.turfId)
       .subscribe(data => {
         this.store.dispatch(setLoadingSpinner({ status: false }))
+
         this.showDay = true
         this.bookedSlots = data
         this.showDateRef.nativeElement.scrollIntoView({ behavior: 'smooth' })

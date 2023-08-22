@@ -37,6 +37,12 @@ import { ImageInputComponent } from './Pages/Turf-Register/components/image-inpu
 import { CalendarModule, DateAdapter } from 'angular-calendar'
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 import { DayShowComponent } from './Pages/TurfDetails/Components/Booking/day-show/day-show.component'
+import { PaymentComponent } from './Pages/TurfDetails/Components/Booking/payment/payment.component'
+import { NgxStripeModule } from 'ngx-stripe'
+import { environment } from 'src/app/environments/environments'
+import { FailedComponent } from './Pages/failed/failed.component'
+import { SuccessComponent } from './Pages/success/success.component';
+import { BookingsComponent } from './Pages/bookings/bookings.component'
 
 @NgModule({
   declarations: [
@@ -69,7 +75,11 @@ import { DayShowComponent } from './Pages/TurfDetails/Components/Booking/day-sho
     ContactInfoComponent,
     LocationSearchComponent,
     ImageInputComponent,
-    DayShowComponent
+    DayShowComponent,
+    PaymentComponent,
+    FailedComponent,
+    SuccessComponent,
+    BookingsComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +89,8 @@ import { DayShowComponent } from './Pages/TurfDetails/Components/Booking/day-sho
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    NgxStripeModule.forRoot(environment.config.stripe.publicKey)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
