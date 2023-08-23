@@ -1,7 +1,13 @@
-import { TurfProfileState } from 'src/app/Models/app.models'
+import {
+  GraphData,
+  TurfBookingDetails,
+  TurfProfileState
+} from 'src/app/Models/app.models'
 
 export interface TurfAdminState {
   profile: TurfProfileState
+  bookings: TurfBookingDetails[]
+  graphData: GraphData[]
 }
 
 export const initialState: TurfAdminState = {
@@ -16,7 +22,9 @@ export const initialState: TurfAdminState = {
     loction_Details: '',
     mobile: '',
     state: ''
-  }
+  },
+  bookings: [],
+  graphData: []
 }
 
 export const TURF_STATE = 'turf-admin'

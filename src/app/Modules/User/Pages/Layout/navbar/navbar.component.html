@@ -31,14 +31,23 @@
         'top-[-490px]': !isOpen
       }"
     >
-      <li *ngFor="let menu of menus" class="text-sm lg:ml-8 lg:my-0 my-7">
+      <li
+        *ngFor="let menu of menus"
+        class="text-sm lg:ml-8 lg:my-0 my-7"
+        (click)="toggleMenu()"
+      >
         <a [routerLink]="menu.link">{{ menu.name }}</a>
       </li>
-      <li *ngIf="isLogin$ | async" class="text-sm lg:ml-8 lg:my-0 my-7">
+      <li
+        *ngIf="isLogin$ | async"
+        class="text-sm lg:ml-8 lg:my-0 my-7"
+        (click)="toggleMenu()"
+      >
         <a routerLink="/bookings">BOOKINGS</a>
       </li>
 
       <button
+        (click)="toggleMenu()"
         *ngIf="!(isLogin$ | async)"
         routerLink="login"
         class="bg-indigo-600 text-white font-[Poppins] py-2 px-6 rounded md:ml-8 hover:bg-indigo-400 duration-500"

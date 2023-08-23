@@ -5,6 +5,10 @@ import { exhaustMap, map, switchMap, tap } from 'rxjs'
 import { setModal } from 'src/app/Modules/shared/redux/shared.actions'
 import { TurfAdminService } from '../Services/turf-admin.service'
 import {
+  fetchGraphData,
+  fetchGraphDataSuccess,
+  fetchTurfBookings,
+  fetchTurfBookingSuccess,
   fetchTurfProfile,
   fetchTurfProfileSuccess,
   updateTurfProfile,
@@ -56,5 +60,29 @@ export class TurfAdminEffects {
       )
     },
     { dispatch: false }
+  )
+
+  fetchTurfBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchTurfBookings),
+      switchMap(() =>
+        this.service
+          .getTurfBookings()
+          .pipe(map(data => fetchTurfBookingSuccess({ data: data })))
+      )
+    )
+  )
+
+  fetchGraphData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchGraphData),
+      switchMap(() =>
+        this.service
+          .getTurfGraphData()
+          .pipe(
+            map(data => fetchGraphDataSuccess({ data: data.monthlyReport }))
+          )
+      )
+    )
   )
 }

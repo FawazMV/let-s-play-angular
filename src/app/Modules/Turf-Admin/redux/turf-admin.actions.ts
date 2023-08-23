@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store'
-import { TurfProfileState } from 'src/app/Models/app.models'
+import {
+  GraphData,
+  TurfBookingDetails,
+  TurfProfileState
+} from 'src/app/Models/app.models'
 
 export const fetchTurfProfile = createAction(
   '[turf profile] fetch profile start'
@@ -20,4 +24,22 @@ export const updateTurfProfileSuccess = createAction(
   props<{ data: FormData }>()
 )
 
-export const turfLogOutAction = createAction('[turf auth page] log out')
+export const fetchTurfBookings = createAction(
+  '[turf bookings] fetch bookings start'
+)
+
+export const fetchTurfBookingSuccess = createAction(
+  '[turf GraphDat] fetch GraphDat success',
+  props<{ data: TurfBookingDetails[] }>()
+)
+
+export const fetchGraphData = createAction(
+  '[turf GraphDat] fetch GraphDat start'
+)
+
+export const fetchGraphDataSuccess = createAction(
+  '[turf bookings] fetch bookings success',
+  props<{ data: GraphData[] }>()
+)
+
+// export const turfLogOutAction = createAction('[turf auth page] log out')

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs'
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs'
 import { TokenState } from 'src/app/Models/app.models'
 import {
   setErrorMessage,
@@ -32,17 +32,12 @@ export class UserAuthEffects {
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loginStart),
-      exhaustMap(action =>
+      switchMap(action =>
         this.service.login(action.email, action.password).pipe(
           map((data: TokenState | any) => {
             this.store.dispatch(setLoadingSpinner({ status: false }))
             this.service.setUserLocalStorage(data)
             return loginSuccess({ user: data, redirect: true })
-          }),
-          catchError(errResp => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            const error = this.service.getErrorMessage(errResp.error.message)
-            return of(setErrorMessage({ message: error }))
           })
         )
       )

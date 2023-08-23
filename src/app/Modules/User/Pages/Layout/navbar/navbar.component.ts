@@ -9,7 +9,7 @@ import { getUserToken } from '../../Auth/store/auth.selectors'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   isLogin$ = this.store.select(getUserToken)
   isOpen = false
   path = this.router.url
@@ -21,12 +21,6 @@ export class NavbarComponent implements OnInit {
   ]
 
   constructor (private store: Store, private router: Router) {}
-
-  ngOnInit (): void {
-    const res = this.isLogin$.subscribe(data => {
-      if (data) this.menus.splice(2, 0, { name: 'BOOKINGS', link: '/bookings' })
-    })
-  }
 
   toggleMenu (): void {
     this.isOpen = !this.isOpen

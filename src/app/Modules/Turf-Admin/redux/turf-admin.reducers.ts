@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import {
+  fetchGraphDataSuccess,
+  fetchTurfBookingSuccess,
   fetchTurfProfileSuccess,
   updateTurfProfileSuccess
 } from './turf-admin.actions'
@@ -19,6 +21,18 @@ const _turfReducer = createReducer(
     return {
       ...state,
       profile: data
+    }
+  }),
+  on(fetchTurfBookingSuccess, (state, action) => {
+    return {
+      ...state,
+      bookings: action.data
+    }
+  }),
+  on(fetchGraphDataSuccess, (state, action) => {
+    return {
+      ...state,
+      graphData: action.data
     }
   })
 )

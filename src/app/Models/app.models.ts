@@ -126,3 +126,24 @@ export interface TurfProfileUpdateState {
   enquiryNumber: string
   openingTime: string
 }
+
+export interface TurfBookingDetails {
+  _id: string
+  user: UserDetails
+  turf: string
+  bookDate: string
+  time: string
+  payment: string
+  rate: string
+}
+
+interface UserDetails {
+  username: string
+  email: string
+  mobile: string
+}
+
+export interface GraphData {
+  month: string
+  totalPrice: number
+}

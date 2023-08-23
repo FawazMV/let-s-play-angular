@@ -7,12 +7,10 @@ export const getTurfProfile = createSelector(getTurfState, state => {
   return state.profile
 })
 
-// export const getSingleTurf = (id: string) => {
-//   return createSelector(getTurfState, state => {
-//     return state.allturfs?.find(t => t._id === id)
-//   })
-// }
+export const getTurfBookings = createSelector(getTurfState, state => {
+  return state.bookings
+})
 
-// export const getTurfToken = createSelector(getTurfState, state => {
-//   return state?.turf?.token
-// })
+export const getGraphData = createSelector(getTurfState, state => {
+  return state.graphData
+})

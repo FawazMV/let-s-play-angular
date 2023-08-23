@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   setUpdate (state: boolean) {
     if (this.formRef.form.valid) {
-      console.log('second update')
       this.isEdit = !state
       this.formRef.form.disable()
       this.store.dispatch(updateTurfProfile({ data: this.formRef.form.value }))

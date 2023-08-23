@@ -3,12 +3,12 @@ import { TokenState } from 'src/app/Models/app.models'
 import { UserAuthState } from './auth.state'
 
 export const loginStart = createAction(
-  '[user auth page] login start',
+  '[user auth page] login starting',
   props<{ email: string; password: string }>()
 )
 
 export const loginSuccess = createAction(
-  '[user auth page] login success',
+  '[user auth page] login successfull',
   props<{ user: TokenState; redirect: boolean }>()
 )
 

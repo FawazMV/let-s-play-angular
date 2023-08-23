@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs'
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs'
 import { TokenState } from 'src/app/Models/app.models'
 import {
   setErrorMessage,
@@ -28,14 +28,6 @@ export class TurfEffects {
         this.service.getAllTurfs().pipe(
           map(data => {
             return turfActions.fetchAllTurfsSuccess({ turfs: data })
-          }),
-          catchError(() => {
-            return of(
-              setErrorMessage({
-                message:
-                  'Something went wrong , please try again or try after sometime'
-              })
-            )
           })
         )
       )
@@ -110,7 +102,7 @@ export class TurfEffects {
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(turfActions.turfLoginstart),
-      exhaustMap(action =>
+      switchMap(action =>
         this.service
           .login({ email: action.email, password: action.password })
           .pipe(

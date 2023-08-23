@@ -22,7 +22,6 @@ export class BookingsComponent implements OnInit {
     const sub = this.service.getBookings().subscribe(data => {
       this.allBookings = data.reverse()
       this.filterBookings = this.filterData()
-      sub.unsubscribe()
     })
   }
 

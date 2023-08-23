@@ -8,7 +8,9 @@ import {
   UserProfileUpdateData
 } from 'src/app/Models/app.models'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   private url = environment.config.userApi
 

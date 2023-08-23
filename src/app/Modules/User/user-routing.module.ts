@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { formProtectGuard } from './Guards/form-protect.guard'
 import {
   signGuard,
   turfSignGuard,
@@ -37,7 +38,11 @@ const routes: Routes = [
         component: BookingsComponent,
         canActivate: [userAuthGuard]
       },
-      { path: 'register-turf', component: TurfRegisterPageManagerComponent },
+      {
+        path: 'register-turf',
+        component: TurfRegisterPageManagerComponent,
+        canDeactivate: [formProtectGuard]
+      },
       {
         path: 'login',
         component: UserLoginComponent,

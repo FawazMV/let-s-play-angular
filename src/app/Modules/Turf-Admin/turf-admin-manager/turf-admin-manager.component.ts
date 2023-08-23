@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { fetchTurfProfile } from '../redux/turf-admin.actions'
+import {
+  fetchGraphData,
+  fetchTurfBookings,
+  fetchTurfProfile
+} from '../redux/turf-admin.actions'
 
 @Component({
   selector: 'app-turf-admin-manager',
@@ -11,6 +15,8 @@ export class TurfAdminManagerComponent implements OnInit {
   constructor (private store: Store) {}
 
   ngOnInit (): void {
+    this.store.dispatch(fetchGraphData())
     this.store.dispatch(fetchTurfProfile())
+    this.store.dispatch(fetchTurfBookings())
   }
 }

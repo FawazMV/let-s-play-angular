@@ -1,6 +1,13 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
+import { Logindata } from 'src/app/Models/app.models'
 import {
   setErrorMessage,
   setLoadingSpinner
@@ -15,7 +22,7 @@ import { loginStart } from '../../store/auth.actions'
 export class LoginComponent implements OnDestroy {
   constructor (private store: Store) {}
 
-  @Output() submit = new EventEmitter()
+  @Output() submit: EventEmitter<Logindata> = new EventEmitter()
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -51,5 +58,6 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy () {
     this.store.dispatch(setErrorMessage({ message: '' }))
+    this.submit.unsubscribe()
   }
 }

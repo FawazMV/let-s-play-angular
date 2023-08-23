@@ -20,6 +20,9 @@ import { TurfAdminReducer } from './redux/turf-admin.reducers'
 import { EffectsModule } from '@ngrx/effects'
 import { TurfAdminEffects } from './redux/turf-admin.effects'
 import { TurfAdminService } from './Services/turf-admin.service'
+import { NgApexchartsModule } from 'ng-apexcharts'
+import { GraphComponent } from './Pages/dashboard/Components/graph/graph.component'
+import { BookingCardComponent } from './Pages/dashboard/Components/booking-card/booking-card.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { TurfAdminService } from './Services/turf-admin.service'
     NavbarComponent,
     FormDetailsComponent,
     DefaultDetailsComponent,
-    ProfileUpdateButtonComponent
+    ProfileUpdateButtonComponent,
+    GraphComponent,
+    BookingCardComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +45,8 @@ import { TurfAdminService } from './Services/turf-admin.service'
     SharedModule,
     HttpClientModule,
     StoreModule.forFeature(TURF_STATE, TurfAdminReducer),
-    EffectsModule.forFeature([TurfAdminEffects])
+    EffectsModule.forFeature([TurfAdminEffects]),
+    NgApexchartsModule
   ],
   providers: [
     TurfAdminService,

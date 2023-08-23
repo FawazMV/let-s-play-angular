@@ -7,17 +7,12 @@ import {
   Validators
 } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import {
-  Features,
-  MapBoxResutl,
-  TurfRegisterDetails
-} from 'src/app/Models/app.models'
+import { TurfRegisterDetails } from 'src/app/Models/app.models'
 import { TurfService } from 'src/app/Modules/User/Services/turf.service'
 import {
   otpConfirm,
   trufOtpsend
 } from 'src/app/Modules/User/store/turfs.actions'
-import { CommonService } from 'src/app/Services/common.service'
 import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 import { otpSelector } from 'src/app/Modules/shared/redux/shared.selector'
 import { ManualValidators as MV } from 'src/app/Validators/validators'

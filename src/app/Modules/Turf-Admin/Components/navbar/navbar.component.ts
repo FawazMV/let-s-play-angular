@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { Store } from '@ngrx/store'
+import { turfLogOutAction } from 'src/app/Modules/User/store/turfs.actions'
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,14 @@ export class NavbarComponent {
     }
   ]
 
+  store = inject(Store)
+
   toggleMenu (): void {
     this.isOpen = !this.isOpen
+  }
+
+  logOut () {
+    const res = confirm('Are you sure?')
+    if (res) this.store.dispatch(turfLogOutAction())
   }
 }

@@ -52,7 +52,6 @@ export class PaymentComponent {
           if (res.error) {
             return this.service.payFail(this.bookId).pipe(
               tap(() => {
-                // sub.unsubscribe()
                 this.store.dispatch(setLoadingSpinner({ status: false }))
                 this.router.navigate(['/payment-errors'])
               })
@@ -88,7 +87,6 @@ export class PaymentComponent {
       .subscribe(data => {
         this.paytIntent = data.paymentIntent
         this.store.dispatch(setLoadingSpinner({ status: false }))
-        // val.unsubscribe()
       })
   }
 }

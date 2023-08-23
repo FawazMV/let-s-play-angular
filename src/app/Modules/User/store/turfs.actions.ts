@@ -7,11 +7,11 @@ import {
 } from 'src/app/Models/app.models'
 
 export const fetchAllTurfs = createAction(
-  '[All turf page] fetching allTurfs start'
+  '[All turf page] fetching allTurfs starting'
 )
 
 export const fetchAllTurfsSuccess = createAction(
-  '[All turf page] fetching allTurfs start',
+  '[All turf page] fetching allTurfs success',
   props<{ turfs: Turf[] }>()
 )
 
@@ -31,7 +31,7 @@ export const registerConfirrm = createAction(
 )
 
 export const turfLoginstart = createAction(
-  '[turf login page] login start',
+  '[turf login page] turf owner login  start',
   props<Logindata>()
 )
 

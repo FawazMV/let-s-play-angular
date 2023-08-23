@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http'
-import { catchError, Observable, switchMap, throwError } from 'rxjs'
+import { catchError, exhaustMap, Observable, switchMap, throwError } from 'rxjs'
 import { Store } from '@ngrx/store'
 import {
   setErrorMessage,
@@ -23,7 +23,7 @@ export class UserInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return this.store.select(getUserToken).pipe(
-      switchMap(token => {
+      exhaustMap(token => {
         const clonedReq = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
