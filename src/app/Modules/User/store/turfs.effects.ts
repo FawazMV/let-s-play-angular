@@ -42,11 +42,6 @@ export class TurfEffects {
           map(data => {
             this.store.dispatch(setLoadingSpinner({ status: false }))
             return setOtp({ status: true })
-          }),
-          catchError(errResp => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            const error = this.service.getErrorMessage(errResp.error.message)
-            return of(setErrorMessage({ message: error }))
           })
         )
       )
@@ -60,11 +55,6 @@ export class TurfEffects {
         this.service.otpCheck(action.mobile, action.otp).pipe(
           map(() => {
             return turfActions.registerConfirrm({ data: action.data })
-          }),
-          catchError(errResp => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            const error = this.service.getErrorMessage(errResp.error.message)
-            return of(setErrorMessage({ message: error }))
           })
         )
       )
@@ -86,11 +76,6 @@ export class TurfEffects {
                     'Your turf registration request completed successfully'
                 })
               )
-            }),
-            catchError(errResp => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
-              const error = this.service.getErrorMessage(errResp.error.message)
-              return of(setErrorMessage({ message: error }))
             })
           )
         )
@@ -113,11 +98,6 @@ export class TurfEffects {
                 turf: data,
                 redirect: true
               })
-            }),
-            catchError(errResp => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
-              const error = this.service.getErrorMessage(errResp.error.message)
-              return of(setErrorMessage({ message: error }))
             })
           )
       )

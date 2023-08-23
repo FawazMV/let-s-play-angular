@@ -64,11 +64,6 @@ export class UserAuthEffects {
           map(data => {
             this.store.dispatch(setLoadingSpinner({ status: false }))
             return setOtp({ status: true })
-          }),
-          catchError(errResp => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            const error = this.service.getErrorMessage(errResp.error.message)
-            return of(setErrorMessage({ message: error }))
           })
         )
       )
@@ -87,11 +82,6 @@ export class UserAuthEffects {
               username: action.username,
               mobileNumber: action.mobileNumber
             })
-          }),
-          catchError(errResp => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            const error = this.service.getErrorMessage(errResp.error.message)
-            return of(setErrorMessage({ message: error }))
           })
         )
       )

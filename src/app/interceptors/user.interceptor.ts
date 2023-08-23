@@ -30,24 +30,7 @@ export class UserInterceptor implements HttpInterceptor {
           }
         })
 
-        return next.handle(clonedReq).pipe(
-          catchError((error: HttpErrorResponse) => {
-            let errorMessage = error.error?.message
-              ? error.error.message
-              : error.error?.error
-            this.store.dispatch(setLoadingSpinner({ status: false }))
-            this.store.dispatch(
-              setErrorMessage({
-                message: errorMessage
-                  ? errorMessage
-                  : 'Some things went wrong! Please try again'
-              })
-            )
-            console.error('HTTP Error:', error)
-            // Pass the error along the chain to allow the app to continue processing it.
-            return throwError(error)
-          })
-        )
+        return next.handle(clonedReq)
       })
     )
   }
