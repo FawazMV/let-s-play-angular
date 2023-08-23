@@ -33,8 +33,8 @@ export class FormDetailsComponent implements OnInit {
       ],
       loction_Details: [this.details.loction_Details, Validators.required],
       openingTime: [this.details.openingTime, Validators.required],
-      closingTime: [this.details.closingTime, Validators.required],
-      images: this.fb.array([], [])
+      closingTime: [this.details.closingTime, Validators.required]
+      // images: this.fb.array([], [])
     })
     this.form.disable()
   }

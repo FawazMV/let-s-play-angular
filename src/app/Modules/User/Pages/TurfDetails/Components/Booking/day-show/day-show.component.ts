@@ -45,7 +45,6 @@ export class DayShowComponent implements OnInit {
   }
 
   getTimeSlots () {
-    console.log(this.timeSlots)
     const timeSlots = []
     const gap = 60
     const startDate = new Date(`2000-01-01T${this.startTime}:00`)

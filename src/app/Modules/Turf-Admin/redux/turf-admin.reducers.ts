@@ -1,21 +1,24 @@
 import { createReducer, on } from '@ngrx/store'
-import { fetchProfileSuccess, turfLogOutAction } from './turf-admin.actions'
+import {
+  fetchTurfProfileSuccess,
+  updateTurfProfileSuccess
+} from './turf-admin.actions'
 
 import { initialState } from './turf-admin.state'
 
 const _turfReducer = createReducer(
   initialState,
-  on(fetchProfileSuccess, (state, action) => {
+  on(fetchTurfProfileSuccess, (state, action) => {
     return {
       ...state,
       profile: action.data
     }
   }),
-
-  on(turfLogOutAction, state => {
+  on(updateTurfProfileSuccess, (state, action) => {
+    const data = { ...state.profile, ...action.data }
     return {
       ...state,
-      turf: null
+      profile: data
     }
   })
 )

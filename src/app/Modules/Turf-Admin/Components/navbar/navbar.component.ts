@@ -21,18 +21,9 @@ export class NavbarComponent {
       link: 'bookings',
       text: 'Bookings'
     }
-    // {
-    //   link: '/turf-admin/earning-report',
-    //   text: 'Earning Reports'
-    // }
   ]
 
-  constructor (private store: Store) {}
-
   toggleMenu (): void {
-    // this.isLogin$.subscribe(data => {
-    //   console.log(data)
     this.isOpen = !this.isOpen
-    // })
   }
 }

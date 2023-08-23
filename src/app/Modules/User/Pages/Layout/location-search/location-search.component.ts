@@ -25,7 +25,6 @@ export class LocationSearchComponent {
   getLocation (value: string) {
     this.service.getMapBoxlist(value).subscribe(data => {
       this.searchResult = data.features.slice(0, 6)
-      console.log(this.searchResult[0]?.context)
     })
   }
 

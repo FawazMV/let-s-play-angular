@@ -1,11 +1,13 @@
-<div *ngIf="profile._id" class="bg-slate-800 text-gray-800">
-  <div class="container mx-auto pt-28 p-4">
+<div
+  class="bg-slate-800 text-gray-600 bg-[url('/assets/images/partnerwithus.jpg')]"
+>
+  <div *ngIf="profile._id" class="container mx-auto pt-20 p-4">
     <div class="mb-4 flex justify-center items-center">
       <h1 class="text-4xl text-gray-200 font-semibold">
         {{ profile.courtName }}
       </h1>
     </div>
-    <!-- <DefaultDetails {...details} /> -->
+    <!-- <img src="/assets/images/partnerwithus.jpg" alt="" /> -->
     <app-default-details *ngIf="profile" [details]="profile" />
     <div class="mt-4">
       <h2 class="text-lg font-semibold mb-2">Additional Details</h2>
@@ -14,14 +16,9 @@
 
         <app-profile-update-button
           [isEdit]="isEdit"
-          (setUpdate)="setUpdate()"
-          (setEdit)="setEdit()"
+          (setUpdate)="setUpdate($event)"
+          (setEdit)="setEdit($event)"
         />
-        <!-- <EditButton
-          isEdit="{isEdit}"
-          setIsEdit="{setIsEdit}"
-          handleUpdate="{handleUpdate}"
-        /> -->
       </div>
     </div>
   </div>

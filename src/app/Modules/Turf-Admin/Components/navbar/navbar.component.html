@@ -1,5 +1,5 @@
 <nav
-  class="absolute z-10 shadow-lg w-full border-gray-200 px-2 sm:px-4 py-2.5 bg-slate-800"
+  class="fixed top-0 z-[999] shadow-lg w-full border-gray-200 px-2 sm:px-4 py-2.5 bg-slate-800"
 >
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <a class="flex items-center">
@@ -53,6 +53,7 @@
       >
         <li *ngFor="let x of Menus">
           <a
+            (click)="toggleMenu()"
             [routerLink]="x.link"
             class="block py-2 pl-3 pr-4 rounded md:p-0 md:hover:text-white text-gray-400 hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
             >{{ x.text }}</a

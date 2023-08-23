@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 
 @Component({
   selector: 'app-profile-update-button',
@@ -7,13 +7,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class ProfileUpdateButtonComponent {
   @Input() isEdit!: boolean
-  @Output() setEdit = new EventEmitter()
-  @Output() setUpdate = new EventEmitter()
+  @Output() setEdit = new EventEmitter<boolean>()
+  @Output() setUpdate = new EventEmitter<boolean>()
 
   onEditClick () {
-    this.setEdit.emit()
+    this.setEdit.emit(this.isEdit)
   }
   onUpdateClic () {
-    this.setUpdate.emit()
+    this.setUpdate.emit(this.isEdit)
   }
 }

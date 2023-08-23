@@ -8,6 +8,7 @@ import {
   TurfProfileUpdateState
 } from '../../../../Models/app.models'
 import { Subscription } from 'rxjs'
+import { updateTurfProfile } from '../../redux/turf-admin.actions'
 
 @Component({
   selector: 'app-profile',
@@ -28,18 +29,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  setEdit () {
-    this.isEdit = true
+  setEdit (state: boolean) {
+    this.isEdit = !state
     this.formRef.form.enable()
   }
 
-  setUpdate () {
-    console.log(this.formRef.form)
+  setUpdate (state: boolean) {
     if (this.formRef.form.valid) {
-      this.store.dispatch(setLoadingSpinner({ status: true }))
-      const data = this.updatefn()
-      this.isEdit = false
+      console.log('second update')
+      this.isEdit = !state
       this.formRef.form.disable()
+      this.store.dispatch(updateTurfProfile({ data: this.formRef.form.value }))
     } else alert('Please fill the details properly')
   }
 

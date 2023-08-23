@@ -6,11 +6,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core'
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent {
-  // @ViewChild('scrollDiv') div: ElementRef | undefined // Add this line
-
   scrollToDiv () {
-    const scrollDiv = document.querySelector('#scrollDiv') // Replace with the actual ID of the div
-    console.log(scrollDiv)
+    const scrollDiv = document.querySelector('#scrollDiv')
     if (scrollDiv) {
       scrollDiv.scrollIntoView({ behavior: 'smooth' })
     }

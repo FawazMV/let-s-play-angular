@@ -110,7 +110,7 @@ export interface TurfProfileState {
   state: string
   Holiday?: string
   event: string
-  Price?: number
+  Price?: number | string
   closingTime?: string
   enquiryNumber?: string
   openingTime?: string

@@ -12,6 +12,10 @@ export class TurfAdminService {
     return this.http.get<TurfProfileState>(this.url + '/turf-profile')
   }
 
+  updateProfile (data: FormData) {
+    return this.http.put(this.url + '/update-turf-profile', data)
+  }
+
   setLocalStorageEmpty () {
     localStorage.removeItem('turf')
   }
