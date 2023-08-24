@@ -11,6 +11,8 @@ import {
   modalMessageSelector
 } from './Modules/shared/redux/shared.selector'
 import { autoLogin } from './Modules/User/Pages/Auth/store/auth.actions'
+import { Subject } from 'rxjs'
+import { LoaderService } from './Services/loader.service'
 
 @Component({
   selector: 'app-root',
@@ -19,10 +21,12 @@ import { autoLogin } from './Modules/User/Pages/Auth/store/auth.actions'
 })
 export class AppComponent implements OnInit {
   title = 'let-s-play'
-  showLoading = this.store.select(getLoading)
+  // showLoading = this.store.select(getLoading)
+
   showModal = this.store.select(modalMessageSelector)
   errorMessage$ = this.store.select(errorMessageSelector)
-  constructor (private store: Store) {}
+  showLoading: Subject<boolean> = this.service.isLoading
+  constructor (private store: Store, private service: LoaderService) {}
 
   ngOnInit (): void {
     this.store.dispatch(turfAutoLogin())

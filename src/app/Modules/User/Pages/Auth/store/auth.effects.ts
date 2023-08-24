@@ -1,43 +1,28 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { Store } from '@ngrx/store'
-import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs'
+import { exhaustMap, map, of, switchMap, tap } from 'rxjs'
 import { TokenState } from 'src/app/Models/app.models'
-import {
-  setErrorMessage,
-  setLoadingSpinner,
-  setOtp
-} from 'src/app/Modules/shared/redux/shared.actions'
+import { setOtp } from 'src/app/Modules/shared/redux/shared.actions'
 import { UserAuthServiceService } from '../../../Services/user-auth.service'
-import {
-  autoLogin,
-  loginStart,
-  loginSuccess,
-  logOutAction,
-  otpConfirm,
-  signupConfirm,
-  signupStart
-} from './auth.actions'
+import * as authActions from './auth.actions'
 
 @Injectable()
 export class UserAuthEffects {
   constructor (
     private actions$: Actions,
     private service: UserAuthServiceService,
-    private store: Store,
     private router: Router
   ) {}
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loginStart),
+      ofType(authActions.loginStart),
       switchMap(action =>
         this.service.login(action.email, action.password).pipe(
           map((data: TokenState | any) => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
             this.service.setUserLocalStorage(data)
-            return loginSuccess({ user: data, redirect: true })
+            return authActions.loginSuccess({ user: data, redirect: true })
           })
         )
       )
@@ -47,7 +32,7 @@ export class UserAuthEffects {
   loginRedirect$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(loginSuccess),
+        ofType(authActions.loginSuccess),
         tap(action => {
           if (action.redirect) this.router.navigate(['/'])
         })
@@ -58,11 +43,10 @@ export class UserAuthEffects {
 
   signup$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(signupStart),
+      ofType(authActions.signupStart),
       exhaustMap(action =>
         this.service.otpSend(action.email, action.mobileNumber).pipe(
           map(data => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
             return setOtp({ status: true })
           })
         )
@@ -72,11 +56,11 @@ export class UserAuthEffects {
 
   otpCofirm$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(otpConfirm),
+      ofType(authActions.otpConfirm),
       exhaustMap(action =>
         this.service.otpCheck(action.mobileNumber, action.otp).pipe(
           map(() => {
-            return signupConfirm({
+            return authActions.signupConfirm({
               email: action.email,
               password: action.password,
               username: action.username,
@@ -90,7 +74,7 @@ export class UserAuthEffects {
 
   signupCofirm$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(signupConfirm),
+      ofType(authActions.signupConfirm),
       exhaustMap(action =>
         this.service
           .signup(
@@ -101,18 +85,11 @@ export class UserAuthEffects {
           )
           .pipe(
             map(() => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
               this.router.navigate(['/login'])
-              this.store.dispatch(setLoadingSpinner({ status: true }))
-              return loginStart({
+              return authActions.loginStart({
                 email: action.email,
                 password: action.password
               })
-            }),
-            catchError(errResp => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
-              const error = this.service.getErrorMessage(errResp.error.message)
-              return of(setErrorMessage({ message: error }))
             })
           )
       )
@@ -121,11 +98,13 @@ export class UserAuthEffects {
 
   autoLogin$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(autoLogin),
-      mergeMap(() => {
+      ofType(authActions.autoLogin),
+      exhaustMap(() => {
         const data = this.service.getUserLocalStorage()
         if (data)
-          return of(loginSuccess({ user: { token: data }, redirect: false }))
+          return of(
+            authActions.loginSuccess({ user: { token: data }, redirect: false })
+          )
         return of()
       })
     )
@@ -134,7 +113,7 @@ export class UserAuthEffects {
   logOutAction$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(logOutAction),
+        ofType(authActions.logOutAction),
         tap(() => {
           this.service.setLocalStorageEmpty()
           this.router.navigate([''])

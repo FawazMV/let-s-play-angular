@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import {
   setErrorMessage,
-  setLoadingSpinner,
   setOtp
 } from 'src/app/Modules/shared/redux/shared.actions'
 import { otpSelector } from 'src/app/Modules/shared/redux/shared.selector'
@@ -70,13 +69,11 @@ export class RegisterComponent {
     if (this.signupForm.invalid) return
 
     const { email, mobileNumber } = this.signupForm.value
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.store.dispatch(signupStart({ email, mobileNumber }))
   }
 
   otpSubmit (otp: number) {
     const { email, password, username, mobileNumber } = this.signupForm.value
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.store.dispatch(
       otpConfirm({ email, password, username, mobileNumber, otp })
     )

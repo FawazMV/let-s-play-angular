@@ -65,7 +65,7 @@ export class TurfAdminEffects {
   fetchTurfBookings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchTurfBookings),
-      switchMap(() =>
+      exhaustMap(() =>
         this.service
           .getTurfBookings()
           .pipe(map(data => fetchTurfBookingSuccess({ data: data })))
@@ -76,7 +76,7 @@ export class TurfAdminEffects {
   fetchGraphData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchGraphData),
-      switchMap(() =>
+      exhaustMap(() =>
         this.service
           .getTurfGraphData()
           .pipe(

@@ -8,25 +8,23 @@ import {
 import { catchError, finalize } from 'rxjs/operators'
 import { throwError } from 'rxjs'
 import { Store } from '@ngrx/store'
-import {
-  setLoadingSpinner,
-  setErrorMessage
-} from '../Modules/shared/redux/shared.actions'
+import { setErrorMessage } from '../Modules/shared/redux/shared.actions'
 import { environment } from '../environments/environments'
+import { LoaderService } from '../Services/loader.service'
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  constructor (private store: Store) {}
-  private turfurl = environment.config.turfApi
-  intercept (request: HttpRequest<any>, next: HttpHandler) {
-    const skipUrls = [this.turfurl]
-    console.log('working')
+  constructor (private store: Store, private service: LoaderService) {}
 
-    if (!skipUrls.some(url => request.url.includes(url))) {
+  private turfurl = environment.config.turfApi
+
+  intercept (request: HttpRequest<any>, next: HttpHandler) {
+    const skipUrls = [this.turfurl + '/turfs']
+    if (skipUrls.some(url => request.url.includes(url))) {
       return next.handle(request)
     }
 
-    this.store.dispatch(setLoadingSpinner({ status: true }))
+    this.service.show()
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -39,8 +37,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         return throwError(error)
       }),
       finalize(() => {
-        console.log('second working')
-        this.store.dispatch(setLoadingSpinner({ status: false }))
+        this.service.hide()
       })
     )
   }

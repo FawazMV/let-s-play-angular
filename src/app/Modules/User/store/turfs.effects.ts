@@ -2,14 +2,9 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
-import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs'
+import { exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs'
 import { TokenState } from 'src/app/Models/app.models'
-import {
-  setErrorMessage,
-  setLoadingSpinner,
-  setModal,
-  setOtp
-} from 'src/app/Modules/shared/redux/shared.actions'
+import { setModal, setOtp } from 'src/app/Modules/shared/redux/shared.actions'
 import { TurfService } from '../Services/turf.service'
 import * as turfActions from './turfs.actions'
 @Injectable()
@@ -39,8 +34,7 @@ export class TurfEffects {
       ofType(turfActions.trufOtpsend),
       exhaustMap(action =>
         this.service.otpSend(action.email, action.mobile).pipe(
-          map(data => {
-            this.store.dispatch(setLoadingSpinner({ status: false }))
+          map(() => {
             return setOtp({ status: true })
           })
         )
@@ -68,7 +62,6 @@ export class TurfEffects {
         exhaustMap(action =>
           this.service.register(action.data).pipe(
             map(() => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
               this.store.dispatch(setOtp({ status: false }))
               this.store.dispatch(
                 setModal({
@@ -92,7 +85,6 @@ export class TurfEffects {
           .login({ email: action.email, password: action.password })
           .pipe(
             map((data: TokenState | any) => {
-              this.store.dispatch(setLoadingSpinner({ status: false }))
               this.service.setUserLocalStorage(data)
               return turfActions.turfLoginSuccess({
                 turf: data,
@@ -107,7 +99,7 @@ export class TurfEffects {
   autoLogin$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(turfActions.turfAutoLogin),
-      mergeMap(() => {
+      exhaustMap(() => {
         const data = this.service.getUserLocalStorage()
         if (data)
           return of(

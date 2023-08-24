@@ -1,14 +1,10 @@
-import { HttpClient } from '@angular/common/http'
 import { Component, Input, ViewChild } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { PaymentIntent, StripeCardElementOptions } from '@stripe/stripe-js'
-import { StripeCardNumberComponent, StripeService } from 'ngx-stripe'
-import { Observable, switchMap, tap } from 'rxjs'
-import { environment } from 'src/app/environments/environments'
+import { StripeCardNumberComponent } from 'ngx-stripe'
+import { exhaustMap, Subscription, switchMap, tap } from 'rxjs'
 import { PaymentService } from 'src/app/Modules/User/Services/payment.service'
-import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-payment',
@@ -21,13 +17,18 @@ export class PaymentComponent {
     private router: Router,
     private store: Store
   ) {}
+
   @ViewChild(StripeCardNumberComponent) card!: StripeCardNumberComponent
+
   @Input() date!: Date
   @Input() turf!: string
   @Input() time!: string
+
+  isDisabled = false
   private bookId!: string
   private paytIntent!: PaymentIntent
-
+  sub$!: Subscription
+  sub1$!: Subscription
   cardOptions: StripeCardElementOptions = {
     style: {
       base: {
@@ -44,22 +45,20 @@ export class PaymentComponent {
   }
 
   pay () {
-    this.store.dispatch(setLoadingSpinner({ status: true }))
-    const sub = this.service
+    this.isDisabled = true
+    this.sub$ = this.service
       .confirmPay(this.paytIntent, this.card)
       .pipe(
-        switchMap(res => {
+        exhaustMap(res => {
           if (res.error) {
             return this.service.payFail(this.bookId).pipe(
               tap(() => {
-                this.store.dispatch(setLoadingSpinner({ status: false }))
                 this.router.navigate(['/payment-errors'])
               })
             )
           } else {
             return this.service.paymentSuccess(this.bookId).pipe(
               tap(data => {
-                this.store.dispatch(setLoadingSpinner({ status: false }))
                 this.router.navigate(['/success-page'], {
                   queryParams: data
                 })
@@ -74,9 +73,12 @@ export class PaymentComponent {
   ngOnInit () {
     this.getPaymentIntent()
   }
-  ngOnDestroy () {}
+  ngOnDestroy () {
+    this.sub$.unsubscribe()
+    this.sub1$.unsubscribe()
+  }
   getPaymentIntent () {
-    const val = this.service
+    this.sub1$ = this.service
       .getBookingId(this.date, this.time, this.turf)
       .pipe(
         switchMap(data => {
@@ -86,7 +88,6 @@ export class PaymentComponent {
       )
       .subscribe(data => {
         this.paytIntent = data.paymentIntent
-        this.store.dispatch(setLoadingSpinner({ status: false }))
       })
   }
 }

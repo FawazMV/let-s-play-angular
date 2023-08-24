@@ -13,7 +13,6 @@ import {
   otpConfirm,
   trufOtpsend
 } from 'src/app/Modules/User/store/turfs.actions'
-import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 import { otpSelector } from 'src/app/Modules/shared/redux/shared.selector'
 import { ManualValidators as MV } from 'src/app/Validators/validators'
 import { LocationSearchComponent } from '../../../Layout/location-search/location-search.component'
@@ -59,7 +58,6 @@ export class FormComponent {
 
   onSubmit () {
     if (this.registerForm.invalid) return
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.store.dispatch(
       trufOtpsend({
         email: this.registerForm.value.email,
@@ -69,7 +67,6 @@ export class FormComponent {
   }
 
   otpSubmit (otp: number) {
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     const formData = new FormData()
     const values: TurfRegisterDetails = this.registerForm.value
     formData.append('email', values.email)

@@ -39,6 +39,7 @@
     </div>
     <button
       (click)="pay()"
+      [disabled]="isDisabled"
       class="w-full mt-6 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
     >
       Submit Payment

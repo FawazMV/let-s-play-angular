@@ -1,18 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core'
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { Logindata } from 'src/app/Models/app.models'
-import {
-  setErrorMessage,
-  setLoadingSpinner
-} from 'src/app/Modules/shared/redux/shared.actions'
-import { loginStart } from '../../store/auth.actions'
+import { setErrorMessage } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-login',
@@ -52,7 +42,6 @@ export class LoginComponent implements OnDestroy {
     if (this.loginForm.invalid) return
 
     const { email, password } = this.loginForm.value
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.submit.emit({ email, password })
   }
 

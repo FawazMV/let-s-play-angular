@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { UserProfile, UserProfileUpdateData } from 'src/app/Models/app.models'
-import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 import { UserService } from '../../../Services/user.service'
 import { ProfileDetailsComponent } from '../components/profile-details/profile-details.component'
 
@@ -26,12 +25,10 @@ export class ProfilePageManagerComponent implements OnInit {
   }
 
   profileUpdate (values: UserProfileUpdateData) {
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.service.updateProfile(values).subscribe(() => {
       if (this.profDet) {
         this.profDet.isUpdate = !this.profDet.isUpdate
         this.profDet.profileForm.enable()
-        this.store.dispatch(setLoadingSpinner({ status: false }))
       }
     })
   }

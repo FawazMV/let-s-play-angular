@@ -8,10 +8,6 @@ import {
 import { exhaustMap, Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { getTurfToken } from '../Modules/User/store/turf.selectors'
-import {
-  setErrorMessage,
-  setLoadingSpinner
-} from '../Modules/shared/redux/shared.actions'
 
 @Injectable({
   providedIn: 'platform'

@@ -57,7 +57,9 @@
 
       <span *ngIf="isLogin$ | async" class="text-sm lg:ml-8 lg:my-0 my-7">
         <a routerLink="/profile">
-          <span class="text-gray-800 lg:hidden hover:text-gray-400 duration-500"
+          <span
+            class="text-gray-800 lg:hidden hover:text-gray-400 duration-500"
+            (click)="toggleMenu()"
             >PROFILE</span
           >
           <svg

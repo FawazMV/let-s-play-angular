@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { CalendarEvent } from 'angular-calendar'
 import { TurfService } from 'src/app/Modules/User/Services/turf.service'
-import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 
 @Component({
   selector: 'app-booking-calendar',
@@ -35,12 +34,9 @@ export class BookingCalendarComponent {
 
   onDayClick ($event: any) {
     this.date = $event.day.date
-    this.store.dispatch(setLoadingSpinner({ status: true }))
     this.service
       .getBookedSlots($event.day.date, this.turfId)
       .subscribe(data => {
-        this.store.dispatch(setLoadingSpinner({ status: false }))
-
         this.showDay = true
         this.bookedSlots = data
         this.showDateRef.nativeElement.scrollIntoView({ behavior: 'smooth' })

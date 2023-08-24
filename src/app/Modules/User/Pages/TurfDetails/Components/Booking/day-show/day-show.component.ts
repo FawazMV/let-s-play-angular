@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { getSingleTurf } from 'src/app/Modules/User/store/turf.selectors'
-import { setLoadingSpinner } from 'src/app/Modules/shared/redux/shared.actions'
 import { getUserToken } from '../../../../Auth/store/auth.selectors'
 
 @Component({
@@ -39,7 +38,6 @@ export class DayShowComponent implements OnInit {
   toPayment (time: string) {
     this.store.select(getUserToken).subscribe(data => {
       if (data) {
-        this.store.dispatch(setLoadingSpinner({ status: true }))
         this.bookTime = time
         this.payment = true
       } else alert('Please login')
