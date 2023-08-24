@@ -1,5 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core'
 import { Store } from '@ngrx/store'
+import { Subscription } from 'rxjs'
 import { UserProfile, UserProfileUpdateData } from 'src/app/Models/app.models'
 import { UserService } from '../../../Services/user.service'
 import { ProfileDetailsComponent } from '../components/profile-details/profile-details.component'
@@ -9,8 +16,10 @@ import { ProfileDetailsComponent } from '../components/profile-details/profile-d
   templateUrl: './page-manager.component.html',
   styleUrls: ['./page-manager.component.css']
 })
-export class ProfilePageManagerComponent implements OnInit {
+export class ProfilePageManagerComponent implements OnInit, OnDestroy {
   user!: UserProfile
+  sub1$!: Subscription
+  sub2$!: Subscription
   @ViewChild(ProfileDetailsComponent) profDet!: ProfileDetailsComponent
   constructor (private service: UserService, private store: Store) {}
 
@@ -19,17 +28,22 @@ export class ProfilePageManagerComponent implements OnInit {
   }
 
   fetchProfileDetails () {
-    this.service.getProfileDetails().subscribe(data => {
+    this.sub1$ = this.service.getProfileDetails().subscribe(data => {
       this.user = data
     })
   }
 
   profileUpdate (values: UserProfileUpdateData) {
-    this.service.updateProfile(values).subscribe(() => {
+    this.sub2$ = this.service.updateProfile(values).subscribe(() => {
       if (this.profDet) {
         this.profDet.isUpdate = !this.profDet.isUpdate
         this.profDet.profileForm.enable()
       }
     })
+  }
+
+  ngOnDestroy (): void {
+    this.sub1$.unsubscribe()
+    this.sub2$.unsubscribe()
   }
 }

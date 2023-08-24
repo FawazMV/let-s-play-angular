@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
+import { Subscription } from 'rxjs'
 import { getSingleTurf } from 'src/app/Modules/User/store/turf.selectors'
 import { getUserToken } from '../../../../Auth/store/auth.selectors'
 
@@ -8,16 +9,19 @@ import { getUserToken } from '../../../../Auth/store/auth.selectors'
   templateUrl: './day-show.component.html',
   styleUrls: ['./day-show.component.css']
 })
-export class DayShowComponent implements OnInit {
-  @Input('data') timeSlots!: any[]
+export class DayShowComponent implements OnInit, OnDestroy {
+  @Input('data') timeSlots!: { time: string }[]
   @Input('id') turfId!: string
   @Input('date') date!: Date
-  slots: any[] = []
+  slots: string[] = []
   startTime!: string
   endTime!: string
   price!: number
   payment: boolean = false
   bookTime!: string
+  sub$1!: Subscription
+  sub2$!: Subscription
+
   constructor (private store: Store) {}
 
   ngOnInit () {
@@ -25,18 +29,20 @@ export class DayShowComponent implements OnInit {
   }
 
   getTurfDetails () {
-    this.store.select(getSingleTurf(this.turfId)).subscribe(data => {
-      if (data) {
-        this.startTime = data.openingTime
-        this.endTime = data.closingTime
-        this.price = data.Price
-        this.slots = this.getTimeSlots()
-      }
-    })
+    this.sub$1 = this.store
+      .select(getSingleTurf(this.turfId))
+      .subscribe(data => {
+        if (data) {
+          this.startTime = data.openingTime
+          this.endTime = data.closingTime
+          this.price = data.Price
+          this.slots = this.getTimeSlots()
+        }
+      })
   }
 
   toPayment (time: string) {
-    this.store.select(getUserToken).subscribe(data => {
+    this.sub2$ = this.store.select(getUserToken).subscribe(data => {
       if (data) {
         this.bookTime = time
         this.payment = true
@@ -62,5 +68,10 @@ export class DayShowComponent implements OnInit {
       if (!this.timeSlots.find(x => x.time === time)) timeSlots.push(time)
     }
     return timeSlots
+  }
+
+  ngOnDestroy (): void {
+    this.sub$1.unsubscribe()
+    this.sub2$.unsubscribe()
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { BookingsData } from 'src/app/Models/app.models'
 import { UserService } from '../../Services/user.service'
 
@@ -7,11 +8,12 @@ import { UserService } from '../../Services/user.service'
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.css']
 })
-export class BookingsComponent implements OnInit {
+export class BookingsComponent implements OnInit, OnDestroy {
   allBookings!: BookingsData[]
   filterBookings!: BookingsData[]
   currentDate = new Date()
   isShowAll = false
+  sub$!: Subscription
   constructor (private service: UserService) {}
 
   ngOnInit (): void {
@@ -19,7 +21,7 @@ export class BookingsComponent implements OnInit {
   }
 
   getBookings () {
-    const sub = this.service.getBookings().subscribe(data => {
+    this.sub$ = this.service.getBookings().subscribe(data => {
       this.allBookings = data.reverse()
       this.filterBookings = this.filterData()
     })
@@ -37,5 +39,9 @@ export class BookingsComponent implements OnInit {
 
   filterData () {
     return this.allBookings.filter(x => new Date(x.bookDate) > this.currentDate)
+  }
+
+  ngOnDestroy (): void {
+    this.sub$.unsubscribe()
   }
 }

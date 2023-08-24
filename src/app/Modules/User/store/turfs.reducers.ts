@@ -1,10 +1,11 @@
 import { createReducer, on } from '@ngrx/store'
+import { Action } from 'rxjs/internal/scheduler/Action'
 import {
   fetchAllTurfsSuccess,
   turfLoginSuccess,
   turfLogOutAction
 } from './turfs.actions'
-import { initialState } from './turfs.state'
+import { AllTurfsState, initialState } from './turfs.state'
 
 const _turfReducer = createReducer(
   initialState,

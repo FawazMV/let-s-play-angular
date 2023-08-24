@@ -1,7 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Store } from '@ngrx/store'
 import { CalendarEvent } from 'angular-calendar'
+import { Subscription } from 'rxjs'
 import { TurfService } from 'src/app/Modules/User/Services/turf.service'
 
 @Component({
@@ -9,7 +15,7 @@ import { TurfService } from 'src/app/Modules/User/Services/turf.service'
   templateUrl: './booking-calendar.component.html',
   styleUrls: ['./booking-calendar.component.css']
 })
-export class BookingCalendarComponent {
+export class BookingCalendarComponent implements OnInit, OnDestroy {
   monthNames = monthNames
   viewDate: Date = new Date()
   month = this.monthNames[this.viewDate.getMonth()]
@@ -18,15 +24,14 @@ export class BookingCalendarComponent {
   turfId!: string
   date!: Date
   bookedSlots = []
+  sub1$!: Subscription
+  sub2$!: Subscription
+
   @ViewChild('showDate') showDateRef!: ElementRef
-  constructor (
-    private service: TurfService,
-    private store: Store,
-    private route: ActivatedRoute
-  ) {}
+  constructor (private service: TurfService, private route: ActivatedRoute) {}
 
   ngOnInit () {
-    this.route.paramMap.subscribe(params => {
+    this.sub1$ = this.route.paramMap.subscribe(params => {
       const id = params.get('id')
       if (id) this.turfId = id
     })
@@ -34,7 +39,7 @@ export class BookingCalendarComponent {
 
   onDayClick ($event: any) {
     this.date = $event.day.date
-    this.service
+    this.sub2$ = this.service
       .getBookedSlots($event.day.date, this.turfId)
       .subscribe(data => {
         this.showDay = true
@@ -63,6 +68,10 @@ export class BookingCalendarComponent {
   isPrevMonth () {
     if (this.viewDate.getMonth() <= new Date().getMonth()) return false
     return true
+  }
+  ngOnDestroy (): void {
+    this.sub1$.unsubscribe()
+    this.sub2$.unsubscribe()
   }
 }
 

@@ -1,7 +1,10 @@
 import { UserAuthReducer } from '../Modules/User/Pages/Auth/store/auth.reducers'
-import { USER_AUTH_STATE } from '../Modules/User/Pages/Auth/store/auth.state'
+import {
+  UserAuthState,
+  USER_AUTH_STATE
+} from '../Modules/User/Pages/Auth/store/auth.state'
 import { TurfReducer } from '../Modules/User/store/turfs.reducers'
-import { TURF_STATE } from '../Modules/User/store/turfs.state'
+import { AllTurfsState, TURF_STATE } from '../Modules/User/store/turfs.state'
 import { SharedReducer } from '../Modules/shared/redux/shared.reducer'
 import {
   SharedState,
@@ -10,6 +13,8 @@ import {
 
 export interface AppState {
   [SHARED_STATE_NAME]: SharedState
+  [USER_AUTH_STATE]: UserAuthState
+  [TURF_STATE]: AllTurfsState
 }
 
 export const appReducer = {

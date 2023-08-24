@@ -2,9 +2,11 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  OnDestroy,
   Output,
   ViewChild
 } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { Features } from 'src/app/Models/app.models'
 import { CommonService } from 'src/app/Services/common.service'
 
@@ -13,17 +15,19 @@ import { CommonService } from 'src/app/Services/common.service'
   templateUrl: './location-search.component.html',
   styleUrls: ['./location-search.component.css']
 })
-export class LocationSearchComponent {
+export class LocationSearchComponent implements OnDestroy {
   searchResult: Features[] = []
   distric!: string
   location!: string
   state!: string
+  sub$!: Subscription
   @ViewChild('location') locationRef!: ElementRef
   @Output() onLocSelect = new EventEmitter()
   @Output() onLocBlur = new EventEmitter()
   constructor (private service: CommonService) {}
+
   getLocation (value: string) {
-    this.service.getMapBoxlist(value).subscribe(data => {
+    this.sub$ = this.service.getMapBoxlist(value).subscribe(data => {
       this.searchResult = data.features.slice(0, 6)
     })
   }
@@ -41,5 +45,9 @@ export class LocationSearchComponent {
   }
   onBlur () {
     this.onLocBlur.emit()
+  }
+
+  ngOnDestroy (): void {
+    this.sub$.unsubscribe()
   }
 }
