@@ -6,6 +6,6 @@ import { Component } from '@angular/core'
   styleUrls: ['./contact-info.component.css']
 })
 export class ContactInfoComponent {
-  number = '+919072879663'
+  number = '9072879663'
   email = 'mvfawazmfz@gmail.com'
 }

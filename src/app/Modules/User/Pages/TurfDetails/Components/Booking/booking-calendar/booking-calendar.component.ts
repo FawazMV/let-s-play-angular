@@ -70,8 +70,8 @@ export class BookingCalendarComponent implements OnInit, OnDestroy {
     return true
   }
   ngOnDestroy (): void {
-    this.sub1$.unsubscribe()
-    this.sub2$.unsubscribe()
+    this.sub1$?.unsubscribe()
+    this.sub2$?.unsubscribe()
   }
 }
 

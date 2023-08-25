@@ -20,6 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(data => (this.graphData = data))
   }
   ngOnDestroy (): void {
-    this.sub$.unsubscribe()
+    this.sub$?.unsubscribe()
   }
 }

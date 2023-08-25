@@ -43,7 +43,7 @@ export class ProfilePageManagerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy (): void {
-    this.sub1$.unsubscribe()
-    this.sub2$.unsubscribe()
+    this.sub1$?.unsubscribe()
+    this.sub2$?.unsubscribe()
   }
 }

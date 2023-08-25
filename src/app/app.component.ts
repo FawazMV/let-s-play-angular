@@ -11,7 +11,7 @@ import {
   modalMessageSelector
 } from './Modules/shared/redux/shared.selector'
 import { autoLogin } from './Modules/User/Pages/Auth/store/auth.actions'
-import { Subject } from 'rxjs'
+import { BehaviorSubject, Subject } from 'rxjs'
 import { LoaderService } from './Services/loader.service'
 
 @Component({
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
   showModal = this.store.select(modalMessageSelector)
   errorMessage$ = this.store.select(errorMessageSelector)
-  showLoading: Subject<boolean> = this.service.isLoading
+  showLoading: BehaviorSubject<boolean> = this.service.isLoading
   constructor (private store: Store, private service: LoaderService) {}
 
   ngOnInit (): void {

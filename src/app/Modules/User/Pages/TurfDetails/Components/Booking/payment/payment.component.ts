@@ -74,8 +74,8 @@ export class PaymentComponent {
     this.getPaymentIntent()
   }
   ngOnDestroy () {
-    this.sub$.unsubscribe()
-    this.sub1$.unsubscribe()
+    this.sub$?.unsubscribe()
+    this.sub1$?.unsubscribe()
   }
   getPaymentIntent () {
     this.sub1$ = this.service

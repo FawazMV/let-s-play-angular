@@ -72,6 +72,6 @@ export class DayShowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy (): void {
     this.sub$1.unsubscribe()
-    this.sub2$.unsubscribe()
+    this.sub2$?.unsubscribe()
   }
 }

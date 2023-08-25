@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PageManagerComponent } from './page-manager.component';
+import { AllTurfsPageManagerComponent } from './page-manager.component'
 
-describe('PageManagerComponent', () => {
-  let component: PageManagerComponent;
-  let fixture: ComponentFixture<PageManagerComponent>;
+describe('AllTurfsPageManagerComponent', () => {
+  let component: AllTurfsPageManagerComponent
+  let fixture: ComponentFixture<AllTurfsPageManagerComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageManagerComponent ]
-    })
-    .compileComponents();
+      declarations: [AllTurfsPageManagerComponent]
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(PageManagerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(AllTurfsPageManagerComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})
