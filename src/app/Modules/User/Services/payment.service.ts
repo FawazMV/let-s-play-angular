@@ -30,17 +30,18 @@ export class PaymentService {
   confirmPay (
     intent: PaymentIntent,
     card: StripeCardNumberComponent
-  ): void | Observable<PaymentIntentResult> {
-    if (intent.client_secret && intent.receipt_email) {
-      return this.stripe.confirmCardPayment(intent.client_secret, {
+  ): Observable<PaymentIntentResult> {
+    return this.stripe.confirmCardPayment(
+      intent.client_secret ? intent.client_secret : '',
+      {
         payment_method: {
           card: card.element,
           billing_details: {
-            name: intent.receipt_email
+            name: intent.receipt_email ? intent.receipt_email : ''
           }
         }
-      })
-    }
+      }
+    )
   }
 
   paymentSuccess (id: string) {
