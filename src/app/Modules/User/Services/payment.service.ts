@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { PaymentIntent } from '@stripe/stripe-js'
+import { PaymentIntent, PaymentIntentResult } from '@stripe/stripe-js'
 import { StripeCardNumberComponent, StripeService } from 'ngx-stripe'
+import { Observable } from 'rxjs'
 import { environment } from 'src/app/environments/environments'
 import { SuccessPageData } from 'src/app/Models/app.models'
 
@@ -26,15 +27,20 @@ export class PaymentService {
     )
   }
 
-  confirmPay (intent: PaymentIntent, card: StripeCardNumberComponent) {
-    return this.stripe.confirmCardPayment(intent?.client_secret, {
-      payment_method: {
-        card: card.element,
-        billing_details: {
-          name: intent.receipt_email
+  confirmPay (
+    intent: PaymentIntent,
+    card: StripeCardNumberComponent
+  ): void | Observable<PaymentIntentResult> {
+    if (intent.client_secret && intent.receipt_email) {
+      return this.stripe.confirmCardPayment(intent.client_secret, {
+        payment_method: {
+          card: card.element,
+          billing_details: {
+            name: intent.receipt_email
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   paymentSuccess (id: string) {

@@ -43,7 +43,7 @@ import { UserLoginComponent } from './Pages/Auth/login/user-login/user-login.com
 import { LoginComponent } from './Pages/Auth/login/components/login.component'
 import { UserInterceptor } from 'src/app/interceptors/user.interceptor'
 import { UserService } from './Services/user.service'
-import { PaymentService } from './Services/payment.service';
+import { PaymentService } from './Services/payment.service'
 import { MobilePipe } from './Pipes/mobile.pipe'
 
 @NgModule({
