@@ -1,7 +1,20 @@
-# LetsPlay
+# Let-s-Play
+An online platform for owners to add turfs to a database and users to search, view, and book turfs for specific time slots. The application is built using the MEAN stack and utilizes various technologies.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+## Frontend
+The project is deployed at https://ornate-chaja-180968.netlify.app
 
+### Features
+* User/Turf-Owner registration and login
+* Turf listing and booking system
+  
+### Technologies Used
+* MongoDB for database management
+* Angular and Tailwind CSS for client-side rendering and responsive web design
+* Node.js and Express.js for server-side implementation
+* Stripe API, Mapbox API, and Twilio for payment processing, location management, and OTP validation.
+
+![Home page](https://github.com/FawazMV/Let-s-Play/blob/master/Frontend/src/assets/website.jpeg "Home page")
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
